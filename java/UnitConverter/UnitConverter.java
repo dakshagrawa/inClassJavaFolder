@@ -25,9 +25,9 @@ public class UnitConverter
 	public static void main(String[] args) //main
 	{
 		/*D&I*/
-		double feet, cm, yards = -100.0;
-		//double cm = -100.0; 
-		//double yards = -100.0;
+		double feet = -1.0;
+		double cm = -1.0; 
+		double yards = -1.0;
 		
 		input();
 
