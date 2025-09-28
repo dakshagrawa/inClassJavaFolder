@@ -13,7 +13,7 @@
  * 
  * Testing plan:
  * 	1. 23 (expected output: 1.92 feet, 0.64 yards, 58.42 centimeters)
- *  2. 
+ *  2. 100 (expected output: 8.33 feet, 2.78 yards, 254.00 centimeter)
  */
 
 import java.util.Scanner; //import Scanner
