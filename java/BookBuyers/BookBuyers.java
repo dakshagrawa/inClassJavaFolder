@@ -10,8 +10,7 @@
  * 
  * Working on: 
  * 1. Inputting from a keyboard
- * 2. Using a Math method
- * 3. using printf()
+ * 2. using printf()
  * 
  * Pseudocode:
  * 	Import the scanner library
