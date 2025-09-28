@@ -2,14 +2,14 @@
 //9-4-2025 Per7
 //MathProblems.java
 /* This program solves the math problems assigned in class.
- * This prrogram declares and intitializes variable, stores the result of an 
+ * This program declares and initializes variable, stores the result of an 
  * expression in a variable, then prints the variable using println as well as 
- * printf anf Format to print a fouble to two places and a char.
+ * printf anf Format to print a double to two places and a char.
  * 
  * 
  * Working on: Declare & Initialize variables, formatting using printf & Format,
  * Order of operations, math functions [+, -, *, /, %], 
- * creating differnet variable types like: float, char, , etc.
+ * creating different variable types like: float, char, , etc.
  */
 
 public class MathProblems
