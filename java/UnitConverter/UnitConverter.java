@@ -14,6 +14,9 @@
  * Testing plan:
  * 	1. 23 (expected output: 1.92 feet, 0.64 yards, 58.42 centimeters)
  *  2. 100 (expected output: 8.33 feet, 2.78 yards, 254.00 centimeter)
+ * 	3. 1.1 (shouldn't work, give errors)
+ * 	4. -23 (negative numbers are not allowed but should work with 
+ * 			actual positive answers )
  */
 
 import java.util.Scanner; //import Scanner
@@ -77,10 +80,12 @@ public class UnitConverter
 	}
 
 	/*print all values out method*/
-	public static void print(double finalFeet, double finalYards, double finalCm) 
+	public static void print(double finalFeet, double finalYards, 
+		double finalCm) 
 	{
-		System.out.printf("%n %d inches is equivalent to %.2f feet, %.2f "+
-			"yards, and %.2f centimeters.%n",inches,finalFeet, finalYards, finalCm);
+		System.out.printf("%n %d inches is equivalent to %.2f feet, "+
+			"%.2f yards, and %.2f centimeters.%n",inches,finalFeet, 
+			finalYards, finalCm);
 		
 		System.out.println("\n\n\n");
 	}
