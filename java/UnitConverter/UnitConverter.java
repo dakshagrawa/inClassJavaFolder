@@ -20,7 +20,7 @@ import java.util.Scanner; //import Scanner
 
 public class UnitConverter
 {
-	public static double inches = -100.0;
+	public static int inches = -100;
 	
 	public static void main(String[] args) //main
 	{
@@ -43,10 +43,13 @@ public class UnitConverter
 	{
 		Scanner input = new Scanner(System.in);
 		System.out.println("\n\n\n");
-		System.out.println("Welcome to Unit Converter! This program will take in the"+
-			" number of inches and print the number of feet, yards and centimeters\n");
-		System.out.print("Please enter the number of inches --> ");
-		inches = input.nextDouble();
+		System.out.println("Welcome to Unit Converter! This program "+
+			"will take in the number of inches and print the number "+
+			"of feet, yards and centimeters\n");
+		System.out.print("Please enter the number of inches (only "+
+			"enter numeral digits without decimal values less than "+
+			"2,147,483,647) --> ");
+		inches = input.nextInt();
 	}
 
 	/*inches to feet method*/
@@ -76,22 +79,9 @@ public class UnitConverter
 	/*print all values out method*/
 	public static void print(double finalFeet, double finalYards, double finalCm) 
 	{
-		System.out.printf("%n %.0f inches is equivalent to %.2f feet, %.2f "+
+		System.out.printf("%n %d inches is equivalent to %.2f feet, %.2f "+
 			"yards, and %.2f centimeters.%n",inches,finalFeet, finalYards, finalCm);
-
-		//original statement is above. modified using if-else is below
-
-/*		if (inches%1 == 0)
-		{
-			System.out.printf("%n %d inches is equivalent to %.2f feet, %.2f "+
-			"yards, and %.2f centimeters.%n",(int)inches,finalFeet, finalYards, finalCm);
-		} 
-		else
-		{
-			System.out.printf("%n %f inches is equivalent to %.2f feet, %.2f "+
-			"yards, and %.2f centimeters.%n",inches,finalFeet, finalYards, finalCm);
-		}
-		System.out.println("\n\n\n"); 
-*/
+		
+		System.out.println("\n\n\n");
 	}
 }
