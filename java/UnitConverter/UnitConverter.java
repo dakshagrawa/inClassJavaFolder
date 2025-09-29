@@ -76,12 +76,12 @@ public class UnitConverter
 	/*print all values out method*/
 	public static void print(double finalFeet, double finalYards, double finalCm) 
 	{
-		/*System.out.printf("%n %.0f inches is equivalent to %.2f feet, %.2f "+
-			"yards, and %.2f centimeters.%n",inches,finalFeet, finalYards, finalCm);*/
+		System.out.printf("%n %.0f inches is equivalent to %.2f feet, %.2f "+
+			"yards, and %.2f centimeters.%n",inches,finalFeet, finalYards, finalCm);
 
 		//original statement is above. modified using if-else is below
 
-		if (inches%1 == 0)
+/*		if (inches%1 == 0)
 		{
 			System.out.printf("%n %d inches is equivalent to %.2f feet, %.2f "+
 			"yards, and %.2f centimeters.%n",(int)inches,finalFeet, finalYards, finalCm);
@@ -91,6 +91,7 @@ public class UnitConverter
 			System.out.printf("%n %f inches is equivalent to %.2f feet, %.2f "+
 			"yards, and %.2f centimeters.%n",inches,finalFeet, finalYards, finalCm);
 		}
-		System.out.println("\n\n\n");
+		System.out.println("\n\n\n"); 
+*/
 	}
 }
