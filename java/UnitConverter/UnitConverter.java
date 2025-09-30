@@ -16,7 +16,7 @@
  *  2. 100 (expected output: 8.33 feet, 2.78 yards, 254.00 centimeter)
  * 	3. 1.1 (shouldn't work, give errors)
  * 	4. -23 (negative numbers are not allowed but should work with 
- * 			actual positive answers )
+ * 			actual positive answers)
  */
 
 import java.util.Scanner; //import Scanner
@@ -50,8 +50,8 @@ public class UnitConverter
 			"will take in the number of inches and print the number "+
 			"of feet, yards and centimeters\n");
 		System.out.print("Please enter the number of inches (only "+
-			"enter numeral digits without decimal values less than "+
-			"2,147,483,647) --> ");
+			"enter positive numeral digits without decimal values less"+
+			" than 2,147,483,647) --> ");
 		inches = input.nextInt();
 	}
 
