@@ -27,8 +27,8 @@ public class UnitConverter3   // class header
 	
 	public static void main (String [] args)	// main () method header
 	{
-		UnitConverter3 uc2 = new UnitConverter3();
-		uc2.convertIt();
+		UnitConverter3 uc3 = new UnitConverter3();
+		uc3.convertIt();
 	}	
 		
 	public void convertIt()	
