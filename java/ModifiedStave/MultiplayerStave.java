@@ -49,7 +49,7 @@ public class MultiplayerStave
 
 		rigger();
 
-		player1 = playerName();
+		player1 = playerName_p1();
     }
 	
 	public static void main (String [] args) // main is complete 
@@ -67,7 +67,7 @@ public class MultiplayerStave
 
 	public void mpRunGame()
 	{
-		playerName2();
+		playerName_p2();
 
 		rollsOfStave numRolls = new rollsOfStave(); //asking user how many roles user wants
 		numOfRolls = numRolls.numberOfRolls();
@@ -184,20 +184,20 @@ public class MultiplayerStave
 		System.out.printf("%n%80s","Your total score is: "+runningScore_p2);
 	} 
 
-	public void playerName2()
+	public String playerName_p1()
+	{
+		String playerNameIn;
+		Scanner in = new Scanner(System.in);
+		System.out.print("\nWhat is your username? ");
+		playerNameIn = in.nextLine();
+		return playerNameIn;
+	}
+
+	public void playerName_p2()
 	{
 		Scanner in = new Scanner(System.in);
 		System.out.print("\nWhat is the second person's username? ");
 		player2 = in.nextLine();
-	}
-
-	public String playerName()
-	{
-		String playerNameIn;
-		Scanner in = new Scanner(System.in);
-		System.out.print("What is your username? ");
-		playerNameIn = in.nextLine();
-		return playerNameIn;
 	}
 
 	public void staveWinner()

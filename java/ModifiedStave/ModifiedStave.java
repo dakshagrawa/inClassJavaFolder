@@ -56,7 +56,13 @@ public class ModifiedStave
 
 		ifMultiplayer(); //checks if the user wants to play multiplayer
 
-		if (isMultiplayer == false)
+		if (isMultiplayer)
+		{
+			System.out.print("\n\n");
+			MultiplayerStave mpst = new MultiplayerStave();
+			mpst.mpRunGame();
+		}
+		else
 		{
 			rollsOfStave numRolls = new rollsOfStave(); //asking user how many roles user wants
 			numOfRolls = numRolls.numberOfRolls();
@@ -71,12 +77,6 @@ public class ModifiedStave
 				updateScore();
 			}
 			System.out.println("\n\n\n");
-		}
-		else
-		{
-			System.out.print("\n\n");
-			MultiplayerStave mpst = new MultiplayerStave();
-			mpst.mpRunGame();
 		}
 		System.out.println("\n\n\n");
 	}
@@ -129,7 +129,7 @@ public class ModifiedStave
 	public void updateScore () 
 	{
 		runningScore++;
-		System.out.println(player+", your score for this roll is: "+score);
+		System.out.println("\n"+player+", your score for this roll is: "+score);
 		System.out.println(player+", your total score is: "+runningScore);
 	} 
 	public void ifMultiplayer()
