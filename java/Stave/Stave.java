@@ -41,7 +41,7 @@ public class Stave
 	public void runGame()
 	{
 		System.out.println("\n\n");
-		System.out.printf("Welcome to Stave!");
+		System.out.printf("%30s","Welcome to Stave!");
 		for (int i = 0; i < 3; i++)	// this is a loop that runs 3 times, so it calls
 		{							// all three methods in order 3 times.
 			playGame();

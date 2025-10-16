@@ -43,7 +43,7 @@ public class UnitConverter   // class header
 		Scanner keyboard = new Scanner (System.in);	// instantiate Scanner 
 		System.out.println ("\n\n\n");
 		System.out.println("Welcome to Unit Converter! This program will take in " +
-			"the in the number of inches and print the number of feet, yards and " +
+			"the number of inches and print the number of feet, yards and " +
 			"centimeters.\n");
 		System.out.print ("Enter an integer greater than or equal to 0 for the " 
 			+ "number of inches --> ");	 // print prompt

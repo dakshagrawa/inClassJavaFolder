@@ -1,7 +1,7 @@
 //Daksh Agrawal
 /* Period 7
  * 10/14/2025
- * Stave.java
+ * ModifiedStave.java
  * 
  * Testing Plan: 
  * 1. <enter key> -> should work
@@ -11,7 +11,7 @@
 
 import java.util.Scanner;
 
-public class Stave 
+public class ModifiedStave 
 {	
 	/* Declare all field variables here (6 int variables).  Be sure they are private. */
 	private char roll1;
@@ -20,9 +20,13 @@ public class Stave
 	private char roll4;
 	private int score;
 	private int runningScore;
+
 	private boolean isMultiplayer;
 
-	public Stave () 
+	public int numOfRolls;
+	public String player;
+
+	public ModifiedStave () 
 	{  
 		// initialize all field variables
 		roll1 = '?';
@@ -31,27 +35,48 @@ public class Stave
 		roll4 = '?';
 		score = 0;
 		runningScore = 0;
+		isMultiplayer = false;
+		numOfRolls = 3;
 	} 
 	
 	public static void main (String [] args) // main is complete 
-	{ 
-		Stave st = new Stave (); 
+	{
+		/*GameStart start = new GameStart(); //start game prompt
+		start.Start();*/
+
+		ModifiedStave st = new ModifiedStave (); 
 		st.runGame();
 	}
 	
 	public void runGame()
 	{
-		System.out.println("\n\n");
-		
-		ifMultiplayer();
+		System.out.println("\n\n\n");
+
+		System.out.printf("%20s%s","","Welcome to Stave!");
+
+		ifMultiplayer(); //checks if the user wants to play multiplayer
+
 		if (isMultiplayer == false)
 		{
-			for (int i = 0; i < 3; i++)	// this is a loop that runs 3 times, so it calls
+			rollsOfStave numRolls = new rollsOfStave(); //asking user how many roles user wants
+			numOfRolls = numRolls.numberOfRolls();
+
+			player = playerName();
+
+			System.out.println("\n\n\n");
+			for (int i = 1; i <= numOfRolls; i++)	// this is a loop that runs 3 times, so it calls
 			{							// all three methods in order 3 times.
 				playGame();
 				scoreGame();
 				updateScore();
 			}
+			System.out.println("\n\n\n");
+		}
+		else
+		{
+			System.out.print("\n\n");
+			MultiplayerStave mpst = new MultiplayerStave();
+			mpst.mpRunGame();
 		}
 		System.out.println("\n\n\n");
 	}
@@ -104,21 +129,33 @@ public class Stave
 	public void updateScore () 
 	{
 		runningScore++;
-		System.out.println("Your score for this roll is: "+score);
-		System.out.println("Your total score is: "+runningScore);
+		System.out.println(player+", your score for this roll is: "+score);
+		System.out.println(player+", your total score is: "+runningScore);
 	} 
 	public void ifMultiplayer()
 	{
 		Scanner in = new Scanner(System.in);
-		String yesorno;
+		String yesorno = new String("~_~");
 		
-		System.out.println("Do you want to play Multiplayer? [Answer with 'Y' or 'N' for yes or no]");
+		System.out.print("\n\nDo you want to play Multiplayer (2 player)? [Answer with 'Y' or 'N' for yes or no] --> ");
 		yesorno = in.next();
-		if ((yesorno == "y") || (yesorno == "Y"))
+		if (yesorno.strip().toLowerCase().equals("y"))
 		{
 			isMultiplayer = true;
-			MultiplayerStave mps = new MultiplayerStave();
 		}
+		else
+		{
+			isMultiplayer = false;
+		}
+	}
+
+	public String playerName()
+	{
+		String playerNameIn;
+		Scanner in = new Scanner(System.in);
+		System.out.print("\n\nWhat is your username? ");
+		playerNameIn = in.nextLine();
+		return playerNameIn;
 	}
 
 } // end class Stave
