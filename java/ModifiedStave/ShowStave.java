@@ -12,10 +12,10 @@ public class ShowStave
     public void displayStave(char rollResult)
     {
 		//System.out.println(rollResult);
-		System.out.printf("%n%-60s",rollResult);
+		System.out.printf("%n%-80s",rollResult);
 	}
 	public void displayStaveR(char rollResultOnRight)
 	{
-		System.out.printf("%n%60s",rollResultOnRight);
+		System.out.printf("%n%80s",rollResultOnRight);
 	}
 }
