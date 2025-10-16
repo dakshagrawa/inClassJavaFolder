@@ -12,7 +12,7 @@ public class Roll
     public char rollStave()
     {
 		char randomRoll;
-		randomRoll = (char)((int)Math.random()*2+35);
+		randomRoll = (char)((int)(Math.random()*2)+35);
 		return randomRoll;
 	}
 }
