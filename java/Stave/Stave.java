@@ -98,7 +98,7 @@ public class Stave
 	
 	public void updateScore () 
 	{
-		runningScore++;
+		runningScore+=score;
 		System.out.println("Your score for this roll is: "+score);
 		System.out.println("Your total score is: "+runningScore);
 	} 

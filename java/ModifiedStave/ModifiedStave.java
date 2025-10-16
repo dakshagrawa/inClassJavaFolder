@@ -128,7 +128,7 @@ public class ModifiedStave
 	
 	public void updateScore () 
 	{
-		runningScore++;
+		runningScore+=score;
 		System.out.println("\n"+player+", your score for this roll is: "+score);
 		System.out.println(player+", your total score is: "+runningScore);
 	} 

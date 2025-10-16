@@ -172,14 +172,14 @@ public class MultiplayerStave
 	
 	public void updateScore_p1 () 
 	{
-		runningScore_p1++;
+		runningScore_p1+=score_p1;
 		System.out.println("\nYour score for this roll is: "+score_p1);
 		System.out.println("Your total score is: "+runningScore_p1);
 	} 
 
 	public void updateScore_p2 () 
 	{
-		runningScore_p2++;
+		runningScore_p2+=score_p2;
 		System.out.printf("%n%80s","Your score for this roll is: "+score_p2);
 		System.out.printf("%n%80s","Your total score is: "+runningScore_p2);
 	} 
