@@ -14,7 +14,7 @@ public class GameStart {
     {
         String rName = new String();
         Scanner in = new Scanner(System.in);
-        System.out.print("\n\nClick ENTER to start game...");
+        System.out.print("\n\nClick ENTER to start the game...");
         userCode = in.nextLine();
         if (userCode.equals(secretCode))
         {

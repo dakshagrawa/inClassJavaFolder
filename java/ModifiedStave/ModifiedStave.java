@@ -52,7 +52,7 @@ public class ModifiedStave
 	{
 		System.out.println("\n\n\n");
 
-		System.out.printf("%20s%s","","Welcome to Stave!");
+		System.out.printf("%30s%s","","Welcome to Stave!");
 
 		ifMultiplayer(); //checks if the user wants to play multiplayer
 
@@ -67,16 +67,18 @@ public class ModifiedStave
 			rollsOfStave numRolls = new rollsOfStave(); //asking user how many roles user wants
 			numOfRolls = numRolls.numberOfRolls();
 
-			player = playerName();
+			namePlayers username = new namePlayers(); //asking user for their username
+			player = username.player1Name();
 
-			System.out.println("\n\n\n");
+			System.out.print("\n\n\n");
 			for (int i = 1; i <= numOfRolls; i++)	// this is a loop that runs 3 times, so it calls
 			{							// all three methods in order 3 times.
 				playGame();
 				scoreGame();
 				updateScore();
 			}
-			System.out.println("\n\n\n");
+			finalScore();
+			System.out.print("\n\n\n");
 		}
 		System.out.println("\n\n\n");
 	}
@@ -87,7 +89,7 @@ public class ModifiedStave
 		Roll rollem = new Roll();
 		ShowStave show = new ShowStave();
 		
-		System.out.print("\nPlease click Enter to play STAVE! ...");
+		System.out.print("\n"+player+", please click Enter to play STAVE! ...");
 		input.nextLine();
 
 		roll1 = rollem.rollStave(); 
@@ -149,13 +151,9 @@ public class ModifiedStave
 		}
 	}
 
-	public String playerName()
+	public void finalScore()
 	{
-		String playerNameIn;
-		Scanner in = new Scanner(System.in);
-		System.out.print("\n\nWhat is your username? ");
-		playerNameIn = in.nextLine();
-		return playerNameIn;
+		System.out.println("\n\nWOW!!! Your final score is a high of "+score);
 	}
 
 } // end class Stave

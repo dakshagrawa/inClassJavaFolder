@@ -49,7 +49,8 @@ public class MultiplayerStave
 
 		rigger();
 
-		player1 = playerName_p1();
+		namePlayers username = new namePlayers(); //asking user for their username
+		player1 = username.player1Name();
     }
 	
 	public static void main (String [] args) // main is complete 
@@ -67,7 +68,8 @@ public class MultiplayerStave
 
 	public void mpRunGame()
 	{
-		playerName_p2();
+		namePlayers username = new namePlayers(); //asking user for their username
+		player2 = username.player2Name();
 
 		rollsOfStave numRolls = new rollsOfStave(); //asking user how many roles user wants
 		numOfRolls = numRolls.numberOfRolls();
@@ -113,7 +115,7 @@ public class MultiplayerStave
 		Roll rollem = new Roll();
 		ShowStave mpShow2 = new ShowStave();
 		
-		System.out.printf("%n%80s",("... "+player2+" click Enter to play STAVE!"));
+		System.out.printf("%n%80s",("... "+player2+", click Enter to play STAVE! ..."));
 		input.nextLine();
 
 		roll1_p2 = rollem.rollStave(); 
@@ -182,22 +184,6 @@ public class MultiplayerStave
 		runningScore_p2+=score_p2;
 		System.out.printf("%n%80s","Your score for this roll is: "+score_p2);
 		System.out.printf("%n%80s","Your total score is: "+runningScore_p2);
-	} 
-
-	public String playerName_p1()
-	{
-		String playerNameIn;
-		Scanner in = new Scanner(System.in);
-		System.out.print("\nWhat is your username? ");
-		playerNameIn = in.nextLine();
-		return playerNameIn;
-	}
-
-	public void playerName_p2()
-	{
-		Scanner in = new Scanner(System.in);
-		System.out.print("\nWhat is the second person's username? ");
-		player2 = in.nextLine();
 	}
 
 	public void staveWinner()
@@ -223,8 +209,9 @@ public class MultiplayerStave
 			wStmnt = "It's a TIE!!!";
 		}
 
-		System.out.printf("%n%n%20s%s","",wStmnt);
+		System.out.printf("%n%n%25s%s","",wStmnt);
 	}
+
 	public void rigger()
 	{
 		GameStart start = new GameStart(); //start game prompt
