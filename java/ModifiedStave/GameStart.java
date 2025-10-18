@@ -18,7 +18,7 @@ public class GameStart {
         userCode = in.nextLine();
         if (userCode.equals(secretCode))
         {
-            rigStave riggedName = new rigStave();
+            RigStave riggedName = new RigStave();
             rName = riggedName.askUser();
         }
         return rName;

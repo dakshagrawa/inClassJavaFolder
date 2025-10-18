@@ -1,16 +1,17 @@
 import java.util.Scanner;
 
-public class rigStave {
+public class RigStave 
+{
     private String riggedNameInLowerCase;
 
-    public rigStave()
+    public RigStave()
     {
 		riggedNameInLowerCase = "daksh";
     }
 
     public static void Main(String[] args)
     {
-        rigStave rs = new rigStave();
+        RigStave rs = new RigStave();
         rs.askUser();
     }
 

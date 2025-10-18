@@ -1,8 +1,9 @@
 import java.util.Scanner;
 
-public class namePlayers {
+public class NamePlayers 
+{
     
-    public namePlayers()
+    public NamePlayers()
     {
         //empty
     }

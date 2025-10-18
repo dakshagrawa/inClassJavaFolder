@@ -49,7 +49,7 @@ public class MultiplayerStave
 
 		rigger();
 
-		namePlayers username = new namePlayers(); //asking user for their username
+		NamePlayers username = new NamePlayers(); //asking user for their username
 		player1 = username.player1Name();
     }
 	
@@ -68,10 +68,10 @@ public class MultiplayerStave
 
 	public void mpRunGame()
 	{
-		namePlayers username = new namePlayers(); //asking user for their username
+		NamePlayers username = new NamePlayers(); //asking user for their username
 		player2 = username.player2Name();
 
-		rollsOfStave numRolls = new rollsOfStave(); //asking user how many roles user wants
+		RollsOfStave numRolls = new RollsOfStave(); //asking user how many roles user wants
 		numOfRolls = numRolls.numberOfRolls();
 
 		for (int i = 1; i <= numOfRolls; i++)	// this is a loop that runs numRolls times times, so it calls
@@ -188,7 +188,7 @@ public class MultiplayerStave
 
 	public void staveWinner()
 	{
-		rigStave rigged = new rigStave();
+		RigStave rigged = new RigStave();
 		boolean isRigged = rigged.trueWinner(player1,player2,rig);
 
 		String wStmnt = new String("~_~"); //statement that prints out who won

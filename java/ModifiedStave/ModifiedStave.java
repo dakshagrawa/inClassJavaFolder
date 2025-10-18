@@ -64,10 +64,10 @@ public class ModifiedStave
 		}
 		else
 		{
-			rollsOfStave numRolls = new rollsOfStave(); //asking user how many roles user wants
+			RollsOfStave numRolls = new RollsOfStave(); //asking user how many roles user wants
 			numOfRolls = numRolls.numberOfRolls();
 
-			namePlayers username = new namePlayers(); //asking user for their username
+			NamePlayers username = new NamePlayers(); //asking user for their username
 			player = username.player1Name();
 
 			System.out.print("\n\n\n");
@@ -153,7 +153,7 @@ public class ModifiedStave
 
 	public void finalScore()
 	{
-		System.out.println("\n\nWOW!!! Your final score is a high of "+score);
+		System.out.println("\n\nWOW!!! Your final score is a high of "+runningScore);
 	}
 
 } // end class Stave

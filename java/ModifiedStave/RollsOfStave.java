@@ -5,9 +5,9 @@
 */
 import java.util.Scanner;
 
-public class rollsOfStave 
+public class RollsOfStave 
 {
-	public rollsOfStave()
+	public RollsOfStave()
 	{
 		//blank
 	}
