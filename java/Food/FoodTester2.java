@@ -1,12 +1,12 @@
-public class FoodTester
+public class FoodTester2
 {
 	//Nothing in constructor because it is never called
-	public FoodTester()
+	public FoodTester2()
 	{
 		//blank
 		//no argument
 	}
-
+	
 	//Code starts running from Main
 	public static void main(String[] args)
 	{
@@ -19,5 +19,9 @@ public class FoodTester
 		// Creates a new Pizza object with "pepperoni" and prints it for sale 
 		Pizza pizza = new Pizza ("pepperoni");
 		pizza.printForSale();
+
+		// DeepDishPizza is called, which extends Pizza which extends Food
+		DeepDishPizza deepDish = new DeepDishPizza("rotten bug");
+		deepDish.printForSale();
 	}
 }
