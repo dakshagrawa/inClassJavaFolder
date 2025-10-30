@@ -135,7 +135,7 @@ public class Postage
 		{
 			System.out.println("\nPlease enter a valid postage class!\n");
 		}
-		//!fix the weight thing here for decimal values
+		//! fix the weight thing here for decimal values
 		if ((category == 1 || category == 3) && !weightTest.equals()
 		{
 			System.out.println("The weight you entered is not a valid input. "
