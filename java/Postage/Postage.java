@@ -61,7 +61,7 @@ public class Postage
 			else if (category == 2)
 			{
 				System.out.print("Postcards, domestic\n");
-				System.out.printf("%-33s%s%n","Weight:","--");
+				System.out.printf("%-33s%s%n","Weight:","--"); // Since weight doesn't matter, "--" is entered
 			}
 			else if (category == 3)
 			{
@@ -107,7 +107,8 @@ public class Postage
 	// This method collects postage category and weight from the user for mailing 
 	public void getData()
 	{
-		// Declares a String variable 'categoryTest' and a double variable 'weightTest' to account for incorrect input values
+		// Declares a String variable 'categoryTest' and a double variable 
+			//'weightTest' to account for incorrect input values
 		String categoryTest = new String();
 		double weightTest = -100.1; //impossible value assigned
 		
@@ -120,18 +121,23 @@ public class Postage
 		System.out.println("\t(2) Postcards, domestic");
 		System.out.println("\t(3) Media Mail");
 		
-		// Prints a formatted message asking the user to enter a category for postage, then reads the input from the user.
+		// Prints a formatted message asking the user to enter a category for postage, 
+			//then reads the input from the user.
 		System.out.printf("%n%-65s %-5s",("Using the menu above, please enter the "
 						+ "category of your postage"),"->");
-		categoryTest = input.nextLine().strip(); //this is to account for String values, decimal values, or any wrong inputs entered by user
+		categoryTest = input.nextLine().strip(); //this is to account for String values, decimal values, 
+													//or any wrong inputs entered by user
 		
-		// Checks the category of the item and asks for weight input accordingly, with specific messages for different categories (like ounces and pounds)
+		// Checks the category of the item and asks for weight input accordingly, 
+			//with specific messages for different categories (like ounces and pounds)
 		if (categoryTest.equals("1"))
 		{
 			category = 1;
 			System.out.printf("%-65s %-5s",("Enter the weight, in ounces,"
-						+ " of your letter (an integer)"),"->");
-			weightTest = input.nextDouble();
+						+ " of your letter (an integer)"),"->"); //prompt for weight
+			weightTest = input.nextDouble(); //this is to account for decimal values and error check for it, 
+												//though it doesn't work for String values because we don't know 
+												//how to convert from String to int for error checking.
 		}
 		else if (categoryTest.equals("2")) 
 		{
@@ -142,23 +148,28 @@ public class Postage
 		{
 			category = 3;
 			System.out.printf("%-65s %-5s",("Enter the weight, in pounds,"
-						+ " of your package (an integer)"),"->");
-			weightTest = input.nextDouble();
+						+ " of your package (an integer)"),"->"); //prompt for weight
+			weightTest = input.nextDouble(); //this is to account for decimal values and error check for it, 
+												//though it doesn't work for String values because we don't know 
+												//how to convert from String to int for error checking.
 		}
-		else
+		else //error message for when a value other than 1, 2, 3 is entered for category
 		{
 			System.out.println("\nPlease enter a valid postage class!");
 		}
 		
+		// Checks if the category is 1 or 3, and if the weightTest is not a valid integer or less than 1, 
+			//then prints an error message and resets category to 0. 
 		if ((category == 1 || category == 3) && (weightTest<1 || weightTest%1!=0))
 		{
 			System.out.println("\nThe weight you entered is not a valid input. "
 								+ "Rerun the program and input a positive"
 								+ " integer");
-			category = 0;
+			category = 0; //This is to prevent printInfo from running
 		}
-		else if (category == 1 || category == 3)
-		{
+		else if (category == 1 || category == 3) // Checks if the category is 1 or 3, and converts weightTest 
+		{											//to an int; skips conversion for category 2 where weightTest
+													//becomes -100.1 since it is not declared any other value for it in between  
 			weight = (int)weightTest;
 		}
 	}
