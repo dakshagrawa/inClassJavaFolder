@@ -78,7 +78,7 @@ public class Hailstone
 			// Handle invalid input (not positive and not -1)
 			else if (userInput!=-1)
 			{
-				System.out.println("Enter a value within the range, please!");
+				System.out.println("\nEnter a value within the range, please!");
 			}
 		} while(userInput!=-1); // Repeat until user enters -1
 		System.out.println("Thank you for playing Hailstone.\n\n");
