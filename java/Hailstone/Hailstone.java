@@ -47,7 +47,7 @@ public class Hailstone
 		{
 			// Get user input
 			getInput();
-			if (userInput>0)
+			if (userInput>0 && userInput<=10000)
 			{
 				// Print the starting number
 				printNum();
