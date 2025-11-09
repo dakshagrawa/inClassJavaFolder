@@ -49,6 +49,8 @@ public class Hailstone
 			getInput();
 			if (userInput>0 && userInput<=10000)
 			{
+				// Resets number of columns for new number
+				numOfPrintColumns = 0;
 				// Print the starting number
 				printNum();
 				counter = 1; // Initialize counter
@@ -67,8 +69,8 @@ public class Hailstone
 						changeWhenOdd();
 					}
 					// Increment counter and print current number
-					counter++;
 					printNum();
+					counter++;
 				}
 				// Print total number of steps
 				printCounter();
