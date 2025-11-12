@@ -2,7 +2,7 @@
 /* Period 7
  * 11/10/2025
  * 
- * Pseudocode (all methods are void (except main) and are public):
+ * >Pseudocode (all methods are void (except main) and are public):
  * 	
  * 	import Scanner
  * 	class header
@@ -26,7 +26,8 @@
  * 		
  * 	newSequence:
  * 		startNum (int) = using Math.random(), make a random number between 0-10
- * 		also make another random number (1-2) to make a an if statement, if number is 1 multiply startNum by -1 
+ * 		also make another random number (1-2) to make a an if statement, if the number 
+ * 		 is 1, multiply startNum by -1 
  * 		
  * 		addingConstant = random number between 1-10
  * 		using a for loop print the first number and print 2nd, 3rd, 4th, 5th numbers that are
@@ -64,103 +65,148 @@
  * 		or else
  * 			print "Incorrect. It was add "+addingConstant
  * 
- * 		
  * 
- * 
- * Testing: 
+ * >Testing: 
+ * 	1. Try incorrect answers for the next number in the sequence, that are a clear 
+ * 		wrong answer and try until the program gives the right answers after 3 tries. 
+ * 		Then also check for the next number in sequence value by just typing in the 
+ * 		right answer and see if it accepts it.  
+ * 	2. For testing the pattern statement, start by entering random strings and seeing
+ * 		if the user's answers are 
  * 
  */
+
 import java.util.Scanner;
 
 public class NumberSequence
 {
-	private int addingConstant;
-	private String userPattern;
-	private int correctAnswer;
-	private int userNextNum;
-	
-	public NumberSequence()
-	{
-		addingConstant = 0;
-		userPattern = "?";
-		correctAnswer = 0;
-		userNextNum = 0;
-	}
-	
-	public static void main(String[] args)
-	{
-		NumberSequence ns = new NumberSequence();
-		ns.runGame();
-	}
-	
-	public void runGame()
-	{
-		System.out.println("\n\n\nWelcome to the Sequence Finder 🔍! "
-						 + " Where you will have to find the next number"
-						 + " in a linear sequence!! And then find the its "
-						 + "pattern!!!");
-   		newSequence();
-  		getNum();
-  		getPattern();
-  		System.out.println("\n");
-	}
-	
-	public void newSequence()
-	{
-		int startNum = (int)(Math.random()*11);
-  		if ((int)(Math.random()*2)==1)
-  		{
-			startNum = startNum*-1;
-		}
-  		
-  		addingConstant = (int)(Math.random()*10+1);
-  		
-		for(int i=0;i<5;i++)
-		{
-			System.out.print((startNum+(i*addingConstant))+", ");
-		}
-		System.out.print("_");
-  		
-  		correctAnswer = startNum + (addingConstant*5);
-	}
-	
-	public void getNum()
-	{
-		Scanner input = new Scanner(System.in);
-		
-  		System.out.print("\nWhat's the next number? ");
-  		userNextNum = input.nextInt();
-  		
-  		for(int i=1; ((i<3) || (userNextNum==correctAnswer)); i++)
-  		{
-			System.out.print("Try again. What's the next number? ");
-			userNextNum = input.nextInt();
-		}
-	}
-	
-	public void getPattern()
-	{
-		
-  		Scanner input = new Scanner(System.in);
-  
-  		String userStringPattern = new String();
- 
-		System.out.print("\nWhat's the pattern? ");
-		userPattern = input.nextLine();
- 		
-		if (userPattern.equalsIgnoreCase("increment by"+addingConstant))
-			System.out.println("Correct. It was increment by"+addingConstant);
- 
- 		else if (userPattern.equalsIgnoreCase("add "+addingConstant))
- 			System.out.println("Correct. It was add "+addingConstant);
+    // Field variables to store the increment constant and the correct answer
+    private int addingConstant;
+    private int correctAnswer;
+    
+    // Constructor initializes fields to 0
+    public NumberSequence()
+    {
+        addingConstant = 0;
+        correctAnswer = 0;
+    }
+    
+    // Main method: entry point of the program
+    public static void main(String[] args)
+    {
+        NumberSequence ns = new NumberSequence(); // create an object
+        ns.runGame(); // start the game
+    }
+    
+    // Runs the game: prints welcome message, generates sequence, checks answers
+    public void runGame()
+    {
+        System.out.println("\n\n\nWelcome to the Sequence Finder!\t"
+                         + "Where you will have to find the next number"
+                         + " in a linear sequence!! And then find the its "
+                         + "pattern!!!");
+        newSequence();     // generate and display sequence
+        checkNextNum();    // ask user to guess next number
+        checkPattern();    // ask user to guess the pattern
+        System.out.println("\n");
+    }
+    
+    // Generates a random arithmetic sequence and stores the correct answer
+    public void newSequence()
+    {
+        final int NUMOFTERMS = 5; // number of terms to display
 
- 		else if (userPattern.equalsIgnoreCase("add by"+addingConstant))
-			System.out.println("Correct. It was add by "+addingConstant);
+        // Generate random starting number between 0–10
+        int startNum = (int)(Math.random()*11);
 
-		else if (userPattern.equalsIgnoreCase("plus "+addingConstant))
-			System.out.println("Correct. It was plus "+addingConstant);
-		else
-			System.out.println("Incorrect. It was add "+addingConstant);
- 		
-	}
+        // Randomly decide if startNum should be negative
+        if ((int)(Math.random()*2)==1)
+        {
+            startNum = startNum*-1;
+        }
+        
+        // Generate random increment constant between 1–10
+        addingConstant = (int)(Math.random()*10+1);
+        
+        // Print first 5 terms of the sequence
+        for(int i=0;i<NUMOFTERMS;i++)
+        {
+            System.out.print((startNum+(i*addingConstant))+", ");
+        }
+        System.out.println("_"); // placeholder for the missing 6th term
+        
+        // Store the correct 6th term
+        correctAnswer = startNum + (addingConstant*NUMOFTERMS);
+    }
+    
+    // Prompts user to guess the next number in the sequence
+    public void checkNextNum()
+    {
+        Scanner input = new Scanner(System.in);
+        int userNextNum = 0;
+        
+        // First attempt
+        System.out.print("What's the next number in this sequence? ");
+        userNextNum = input.nextInt();
+        
+        // Allow up to 2 retries if incorrect
+        for(int i=1;i<3; i++)
+        {
+            if (userNextNum==correctAnswer) 
+                i=3; // exit loop early if correct
+            else
+            {
+                System.out.print("Try again. What could the next number be? ");
+                userNextNum = input.nextInt();
+            }
+        }
+
+        // Final check after attempts
+        if (userNextNum==correctAnswer)
+        {
+            System.out.println("Correct! The next number is "+correctAnswer+".");
+        }
+        else
+        {
+            System.out.println("Try again next time, the next number in this sequence is actually "+correctAnswer+".");
+        }
+    }
+    
+    // Prompts user to guess the pattern used in the sequence
+    public void checkPattern()
+    {
+        Scanner input = new Scanner(System.in);
+
+        String userPattern = new String("?");
+
+        // Ensure user enters a non-empty string
+        do
+        {
+            System.out.print("What's the pattern? ");
+            userPattern = input.nextLine();
+        } while (userPattern.equals(""));
+
+        // Check multiple possible correct phrasings
+        if (userPattern.equalsIgnoreCase("increment by"+addingConstant))
+            System.out.println("Correct. It was increment by"+addingConstant);
+ 
+        else if (userPattern.equalsIgnoreCase("add "+addingConstant))
+            System.out.println("Correct. It was add "+addingConstant);
+
+        else if (userPattern.equalsIgnoreCase("add by"+addingConstant))
+            System.out.println("Correct. It was add by "+addingConstant);
+
+        else if (userPattern.equalsIgnoreCase("plus "+addingConstant))
+            System.out.println("Correct. It was plus "+addingConstant);
+
+        else if (userPattern.equalsIgnoreCase(""+addingConstant))
+            System.out.println("Correct. It was adding "+addingConstant+" to each number!");
+        
+        else if (userPattern.equalsIgnoreCase("+"+addingConstant))
+            System.out.println("Correct. It was +"+addingConstant);
+
+        else
+            System.out.println("Close! It was actually, add "+addingConstant);
+        
+    } 
 }
