@@ -2,6 +2,12 @@
 /* Period 7
  * 11/10/2025
  * 
+ * >Description: Generates a random arithmetic sequence, asks the user to guess
+ *              the next number in the sequence, and then asks them to identify
+ *              the pattern used.
+ * 
+ * >Learning: Using loops, if statements, etc. 
+ * 
  * >Pseudocode (all methods are void (except main) and are public):
  * 	
  * 	import Scanner
