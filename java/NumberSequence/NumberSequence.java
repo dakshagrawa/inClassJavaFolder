@@ -189,11 +189,14 @@ public class NumberSequence
         do
         {
             System.out.print("What's the pattern? ");
-            userPattern = input.nextLine();
+            userPattern = input.next() + " " +input.next();
+            if (userPattern.equalsIgnoreCase("increment by")) {
+				userPattern += input.next();
+			}
         } while (userPattern.equals(""));
 
         // Check multiple possible correct phrasings
-        if (userPattern.equalsIgnoreCase("increment by"+addingConstant))
+        if (userPattern.equalsIgnoreCase("increment by "+addingConstant))
             System.out.println("Correct. It was increment by"+addingConstant);
  
         else if (userPattern.equalsIgnoreCase("add "+addingConstant))
