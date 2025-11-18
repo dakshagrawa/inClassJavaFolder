@@ -188,7 +188,7 @@ public class NumberSequence
         // Ensure user enters a non-empty string
         do
         {
-            System.out.print("What's the pattern? ");
+            System.out.print("What's the pattern between each of the numbers? ");
             userPattern = input.next() + " " +input.next();
             if (userPattern.equalsIgnoreCase("increment by")) {
 				userPattern += input.next();
