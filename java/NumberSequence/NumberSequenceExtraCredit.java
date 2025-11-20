@@ -6,71 +6,7 @@
  *              the next number in the sequence, and then asks them to identify
  *              the pattern used.
  * 
- * >Learning: Using loops, if statements, etc. 
- * 
- * >Pseudocode (all methods are void (except main) and are public):
- * 	
- * 	import Scanner
- * 	class header
- * 
- * 	private field variables: addingConstant (int), userPattern(String), correctAnswer (int), userNextNum (int)
- * 
- * 	constructor:
- * 		addingConstant (int), userPattern (String), correctAnswer (int), userInput (int) = 0
- * 		
- * 	main: 
- * 		call NumberSequence
- * 		call runGame
- * 	
- * 	runGame:
- * 		print 3 BLs
- * 		print out welcome statement 
- * 		call newSequence
- * 		call getNum
- * 		call getPattern
- * 		print 3 BLs
- * 		
- * 	newSequence:
- * 		startNum (int) = using Math.random(), make a random number between 0-10
- * 		also make another random number (1-2) to make a an if statement, if the number 
- * 		 is 1, multiply startNum by -1 
- * 		
- * 		addingConstant = random number between 1-10
- * 		using a for loop print the first number and print 2nd, 3rd, 4th, 5th numbers that are
- * 		 incrementing in the variable called i (int) using this formula- startNum + (addingConstant*i)
- * 		
- * 		correctAnswer = startNum + (addingConstant*5) since it is the 6th number in the sequence
- * 		
- * 	getNum: 
- * 		instantiate Scanner
- * 		
- * 		prompt user for next number and store value in userInput
- * 		for loop that ends when it has ran 3 times or when userNextNum==correctAnswer
- * 			prompt user for next number after saying try again and store value in userInput
- * 	
- * 	getPattern:
- * 		instantiate Scanner
- * 
- * 		D&I userStringPattern (String)
- * 
- * 		prompt user for pattern	
- * 		input a String in userStringPattern
- * 		
- * 		check if userStringPattern equals "increment by"+addingConstant 
- * 			and print "Correct. It was increment by"+addingConstant
- * 
- * 		or else if userStringPattern equals "add "+addingConstant 
- * 			and print "Correct. It was add "+addingConstant
- * 
- * 		or else if userStringPattern equals "add by"+addingConstant 
- * 			and print "Correct. It was add by "+addingConstant
- * 
- * 		or else if userStringPattern equals "plus "+addingConstant 
- * 			and print "Correct. It was plus "+addingConstant
- * 
- * 		or else
- * 			print "Incorrect. It was add "+addingConstant
- * 
+ * >Learning: Using recursions, if statements, etc. 
  * 
  * >Testing: 
  * 	1. Try incorrect answers for the next number in the sequence, that are a clear 
@@ -218,4 +154,8 @@ public class NumberSequence
             System.out.println("Close! It was actually, add "+addingConstant);
         
     } 
+
+    /*RECURSION METHODS: */
+
+    
 }
