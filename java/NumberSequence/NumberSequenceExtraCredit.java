@@ -20,14 +20,14 @@
 
 import java.util.Scanner;
 
-public class NumberSequence
+public class NumberSequenceExtraCredit
 {
     // Field variables to store the increment constant and the correct answer
     private int addingConstant;
     private int correctAnswer;
     
     // Constructor initializes fields to 0
-    public NumberSequence()
+    public NumberSequenceExtraCredit()
     {
         addingConstant = 0;
         correctAnswer = 0;
@@ -36,8 +36,8 @@ public class NumberSequence
     // Main method: entry point of the program
     public static void main(String[] args)
     {
-        NumberSequence ns = new NumberSequence(); // create an object
-        ns.runGame(); // start the game
+        NumberSequenceExtraCredit nsec = new NumberSequenceExtraCredit(); // create an object
+        nsec.runGame(); // start the game
     }
     
     // Runs the game: prints welcome message, generates sequence, checks answers
@@ -71,10 +71,7 @@ public class NumberSequence
         addingConstant = (int)(Math.random()*10+1);
         
         // Print first 5 terms of the sequence
-        for(int i=0;i<NUMOFTERMS;i++)
-        {
-            System.out.print((startNum+(i*addingConstant))+", ");
-        }
+        newSequenceLoop(startNum, NUMOFTERMS, 0);
         System.out.println("_"); // placeholder for the missing 6th term
         
         // Store the correct 6th term
@@ -92,16 +89,7 @@ public class NumberSequence
         userNextNum = input.nextInt();
         
         // Allow up to 2 retries if incorrect
-        for(int i=1;i<3; i++)
-        {
-            if (userNextNum==correctAnswer) 
-                i=3; // exit loop early if correct
-            else
-            {
-                System.out.print("Try again. What could the next number be? ");
-                userNextNum = input.nextInt();
-            }
-        }
+        userNextNum = checkNextNumLoop(userNextNum,3);
 
         // Final check after attempts
         if (userNextNum==correctAnswer)
@@ -122,18 +110,11 @@ public class NumberSequence
         String userPattern = new String("?");
 
         // Ensure user enters a non-empty string
-        do
-        {
-            System.out.print("What's the pattern between each of the numbers (example answer: add 8)? ");
-            userPattern = input.next() + " " +input.next();
-            if (userPattern.equalsIgnoreCase("increment by")) {
-				userPattern += input.next();
-			}
-        } while (userPattern.equals(""));
+        userPattern = checkPatternLoop(userPattern); // This is calling the recursion method
 
         // Check multiple possible correct phrasings
         if (userPattern.equalsIgnoreCase("increment by "+addingConstant))
-            System.out.println("Correct. It was increment by"+addingConstant);
+            System.out.println("Correct. It was increment by "+addingConstant);
  
         else if (userPattern.equalsIgnoreCase("add "+addingConstant))
             System.out.println("Correct. It was add "+addingConstant);
@@ -155,7 +136,51 @@ public class NumberSequence
         
     } 
 
-    /*RECURSION METHODS: */
+/*RECURSION METHODS: */
 
+    public void newSequenceLoop(int start, int TERMS, int counter)
+    {
+        if (counter==TERMS)
+        {}
+        else 
+        {
+            System.out.print((start+(counter*addingConstant))+", ");
+            counter++;
+            newSequenceLoop(start,TERMS,counter);
+        }
+
+    }
+
+    // Allow up to 2 retries if user enters an incorrect answer each time
+    public int checkNextNumLoop(int userNextNumInLoop, int counter)
+    {
+        Scanner input = new Scanner(System.in);
+        
+        if (userNextNumInLoop==correctAnswer || counter==1) 
+            return userNextNumInLoop; // exit early if correct
+        else
+        {
+            System.out.print("Try again. What could the next number be? ");
+            counter--;
+            return checkNextNumLoop(input.nextInt(),counter); //? Why does counter-- not work when put into method values?
+        }
+    }
+
+    
+    // Ensure user enters a non-empty string when entering pattern
+    public String checkPatternLoop(String userPatternInLoop)
+    {
+        Scanner input = new Scanner(System.in);
+        System.out.print("What's the pattern between each of the numbers (example answer: add 8)? ");
+        userPatternInLoop = input.next() + " " +input.next();
+        if (userPatternInLoop.equalsIgnoreCase("increment by")) 
+        {
+            userPatternInLoop += " "+input.next();
+        }
+        if (userPatternInLoop.equals(""))
+            return checkPatternLoop(userPatternInLoop);
+        else
+            return userPatternInLoop;
+    }
     
 }

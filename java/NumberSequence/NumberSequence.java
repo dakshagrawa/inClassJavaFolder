@@ -190,14 +190,15 @@ public class NumberSequence
         {
             System.out.print("What's the pattern between each of the numbers (example answer: add 8)? ");
             userPattern = input.next() + " " +input.next();
-            if (userPattern.equalsIgnoreCase("increment by")) {
-				userPattern += input.next();
+            if (userPattern.equalsIgnoreCase("increment by")) 
+            {
+				userPattern += " "+input.next();
 			}
         } while (userPattern.equals(""));
 
         // Check multiple possible correct phrasings
         if (userPattern.equalsIgnoreCase("increment by "+addingConstant))
-            System.out.println("Correct. It was increment by"+addingConstant);
+            System.out.println("Correct. It was increment by "+addingConstant);
  
         else if (userPattern.equalsIgnoreCase("add "+addingConstant))
             System.out.println("Correct. It was add "+addingConstant);
