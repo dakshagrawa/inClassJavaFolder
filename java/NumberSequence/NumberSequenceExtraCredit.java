@@ -23,13 +23,13 @@ import java.util.Scanner;
 public class NumberSequenceExtraCredit
 {
     // Field variables to store the increment constant and the correct answer
-    private int addingConstant;
+    private int changingConstant;
     private int correctAnswer;
     
     // Constructor initializes fields to 0
     public NumberSequenceExtraCredit()
     {
-        addingConstant = 0;
+        changingConstant = 0;
         correctAnswer = 0;
     }
     
@@ -58,25 +58,33 @@ public class NumberSequenceExtraCredit
     {
         final int NUMOFTERMS = 5; // number of terms to display
 
+        // Generate random increment constant between 1–10
+        changingConstant = (int)(Math.random()*10+1);
+
+        // Randomly decide if changingConstant should be adding or subtracting
+        boolean subtracting = false;
+        if ((int)(Math.random()*2)==1)
+        {
+            subtracting = true;
+            changingConstant = changingConstant*-1;
+        }
+        
         // Generate random starting number between 0–10
         int startNum = (int)(Math.random()*11);
 
         // Randomly decide if startNum should be negative
-        if ((int)(Math.random()*2)==1)
+        if ((int)(Math.random()*2)==1 && !subtracting)
         {
             startNum = startNum*-1;
         }
-        
-        // Generate random increment constant between 1–10
-        addingConstant = (int)(Math.random()*10+1);
         
         // Print first 5 terms of the sequence
         newSequenceLoop(startNum, NUMOFTERMS, 0);
         System.out.println("_"); // placeholder for the missing 6th term
         
         // Store the correct 6th term
-        correctAnswer = startNum + (addingConstant*NUMOFTERMS);
-    }
+        correctAnswer = startNum + (NUMOFTERMS*changingConstant);
+}
     
     // Prompts user to guess the next number in the sequence
     public void checkNextNum()
@@ -85,7 +93,7 @@ public class NumberSequenceExtraCredit
         int userNextNum = 0;
         
         // First attempt
-        System.out.print("What's the next number in this sequence (answer only as integers)? ");
+        System.out.print("What's the next number in this sequence (answer only as an integer)? ");
         userNextNum = input.nextInt();
         
         // Allow up to 2 retries if incorrect
@@ -110,31 +118,86 @@ public class NumberSequenceExtraCredit
         String userPattern = new String("?");
 
         // Ensure user enters a non-empty string
-        userPattern = checkPatternLoop(userPattern); // This is calling the recursion method
+        //do
+        //{
+        System.out.print("What's the pattern between each of the numbers (example answer: add 8)? ");
+        userPattern = input.next();
+        if (!(userPattern.equalsIgnoreCase("+"+changingConstant) || userPattern.equalsIgnoreCase(""+changingConstant)))
+        {
+            userPattern += " "+input.next();
+        }
+        if (userPattern.equalsIgnoreCase("increment by") || userPattern.equalsIgnoreCase("decrement by")) 
+        {
+            userPattern += " "+input.next();
+        }
+        //} while (userPattern.equals(""));
+
+        userPattern = userPattern.trim();
 
         // Check multiple possible correct phrasings
-        if (userPattern.equalsIgnoreCase("increment by "+addingConstant))
-            System.out.println("Correct. It was increment by "+addingConstant);
- 
-        else if (userPattern.equalsIgnoreCase("add "+addingConstant))
-            System.out.println("Correct. It was add "+addingConstant);
-
-        else if (userPattern.equalsIgnoreCase("add by"+addingConstant))
-            System.out.println("Correct. It was add by "+addingConstant);
-
-        else if (userPattern.equalsIgnoreCase("plus "+addingConstant))
-            System.out.println("Correct. It was plus "+addingConstant);
-
-        else if (userPattern.equalsIgnoreCase(""+addingConstant))
-            System.out.println("Correct. It was adding "+addingConstant+" to each number!");
+        if (userPattern.equalsIgnoreCase("increment by " + changingConstant) && changingConstant > 0) 
+        {
+            System.out.println("Correct. It was increment by " + changingConstant);
+        } 
+        else if (userPattern.equalsIgnoreCase("add " + changingConstant) && changingConstant > 0) 
+        {
+            System.out.println("Correct. It was add " + changingConstant);
+        }
+        else if (userPattern.equalsIgnoreCase("add by " + changingConstant) && changingConstant > 0) 
+        {
+            System.out.println("Correct. It was add by " + changingConstant);
+        }
+        else if (userPattern.equalsIgnoreCase("plus " + changingConstant) && changingConstant > 0) 
+        {
+            System.out.println("Correct. It was plus " + changingConstant);
+        }
+        else if (userPattern.equalsIgnoreCase("+" + changingConstant) && changingConstant > 0) 
+        {
+            System.out.println("Correct. It was +" + changingConstant);
+        }
+        else if (userPattern.equalsIgnoreCase("+ " + changingConstant) && changingConstant > 0) 
+        {
+            System.out.println("Correct. It was + " + changingConstant);
+        }
         
-        else if (userPattern.equalsIgnoreCase("+"+addingConstant))
-            System.out.println("Correct. It was +"+addingConstant);
+        // --- Subtraction Phrasings (Only check if changingConstant is negative) ---
+        // Note: We use absConstant for the number in the phrase (e.g., "subtract 5")
+        else if (userPattern.equalsIgnoreCase("decrement by " + -changingConstant) && changingConstant < 0) 
+        {
+            System.out.println("Correct. It was decrement by " + -changingConstant);
+        } 
+        else if (userPattern.equalsIgnoreCase("subtract " + -changingConstant) && changingConstant < 0) 
+        {
+            System.out.println("Correct. It was subtract " + -changingConstant);
+        }
+        else if (userPattern.equalsIgnoreCase("subtract by " + -changingConstant) && changingConstant < 0) 
+        {
+            System.out.println("Correct. It was subtract by " + -changingConstant);
+        }
+        else if (userPattern.equalsIgnoreCase("minus " + -changingConstant) && changingConstant < 0) 
+        {
+            System.out.println("Correct. It was minus " + -changingConstant);
+        }
+        else if (userPattern.equalsIgnoreCase("-" + -changingConstant) && changingConstant < 0) 
+        {
+            System.out.println("Correct. It was -" + -changingConstant);
+        } 
+        else if (userPattern.equalsIgnoreCase("- " + -changingConstant) && changingConstant < 0) 
+        {
+            System.out.println("Correct. It was - " + -changingConstant);
+        } 
+        
+        // --- Fallback/Incorrect Answers (Retaining original structure) ---
+        else if (changingConstant > 0)
+            System.out.println("Close! It was actually, add "+changingConstant);
+
+        else if (changingConstant < 0)
+            System.out.println("Close! It was actually, subtract "+-changingConstant);
 
         else
-            System.out.println("Close! It was actually, add "+addingConstant);
+            System.out.println("\n\n~ERROR~\n"); // If all statements are untrue, it will be an error
         
-    } 
+    }
 
 /*RECURSION METHODS: */
 
@@ -144,7 +207,7 @@ public class NumberSequenceExtraCredit
         {}
         else 
         {
-            System.out.print((start+(counter*addingConstant))+", ");
+            System.out.print((start+(counter*changingConstant))+", ");
             counter++;
             newSequenceLoop(start,TERMS,counter);
         }
@@ -165,22 +228,4 @@ public class NumberSequenceExtraCredit
             return checkNextNumLoop(input.nextInt(),counter); //? Why does counter-- not work when put into method values?
         }
     }
-
-    
-    // Ensure user enters a non-empty string when entering pattern
-    public String checkPatternLoop(String userPatternInLoop)
-    {
-        Scanner input = new Scanner(System.in);
-        System.out.print("What's the pattern between each of the numbers (example answer: add 8)? ");
-        userPatternInLoop = input.next() + " " +input.next();
-        if (userPatternInLoop.equalsIgnoreCase("increment by")) 
-        {
-            userPatternInLoop += " "+input.next();
-        }
-        if (userPatternInLoop.equals(""))
-            return checkPatternLoop(userPatternInLoop);
-        else
-            return userPatternInLoop;
-    }
-    
 }
