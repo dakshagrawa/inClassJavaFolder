@@ -135,54 +135,54 @@ public class NumberSequenceExtraCredit
         userPattern = userPattern.trim();
 
         // Check multiple possible correct phrasings
-        if (userPattern.equalsIgnoreCase("increment by " + changingConstant) && changingConstant > 0) 
+        if (userPattern.equalsIgnoreCase("increment by " + changingConstant)) 
         {
             System.out.println("Correct. It was increment by " + changingConstant);
         } 
-        else if (userPattern.equalsIgnoreCase("add " + changingConstant) && changingConstant > 0) 
+        else if (userPattern.equalsIgnoreCase("add " + changingConstant)) 
         {
             System.out.println("Correct. It was add " + changingConstant);
         }
-        else if (userPattern.equalsIgnoreCase("add by " + changingConstant) && changingConstant > 0) 
+        else if (userPattern.equalsIgnoreCase("add by " + changingConstant)) 
         {
             System.out.println("Correct. It was add by " + changingConstant);
         }
-        else if (userPattern.equalsIgnoreCase("plus " + changingConstant) && changingConstant > 0) 
+        else if (userPattern.equalsIgnoreCase("plus " + changingConstant)) 
         {
             System.out.println("Correct. It was plus " + changingConstant);
         }
-        else if (userPattern.equalsIgnoreCase("+" + changingConstant) && changingConstant > 0) 
+        else if (userPattern.equalsIgnoreCase("+" + changingConstant)) 
         {
             System.out.println("Correct. It was +" + changingConstant);
         }
-        else if (userPattern.equalsIgnoreCase("+ " + changingConstant) && changingConstant > 0) 
+        else if (userPattern.equalsIgnoreCase("+ " + changingConstant)) 
         {
             System.out.println("Correct. It was + " + changingConstant);
         }
         
         // --- Subtraction Phrasings (Only check if changingConstant is negative) ---
         // Note: We use absConstant for the number in the phrase (e.g., "subtract 5")
-        else if (userPattern.equalsIgnoreCase("decrement by " + -changingConstant) && changingConstant < 0) 
+        else if (userPattern.equalsIgnoreCase("decrement by " + -changingConstant)) 
         {
             System.out.println("Correct. It was decrement by " + -changingConstant);
         } 
-        else if (userPattern.equalsIgnoreCase("subtract " + -changingConstant) && changingConstant < 0) 
+        else if (userPattern.equalsIgnoreCase("subtract " + -changingConstant)) 
         {
             System.out.println("Correct. It was subtract " + -changingConstant);
         }
-        else if (userPattern.equalsIgnoreCase("subtract by " + -changingConstant) && changingConstant < 0) 
+        else if (userPattern.equalsIgnoreCase("subtract by " + -changingConstant)) 
         {
             System.out.println("Correct. It was subtract by " + -changingConstant);
         }
-        else if (userPattern.equalsIgnoreCase("minus " + -changingConstant) && changingConstant < 0) 
+        else if (userPattern.equalsIgnoreCase("minus " + -changingConstant)) 
         {
             System.out.println("Correct. It was minus " + -changingConstant);
         }
-        else if (userPattern.equalsIgnoreCase("-" + -changingConstant) && changingConstant < 0) 
+        else if (userPattern.equalsIgnoreCase("-" + -changingConstant)) 
         {
             System.out.println("Correct. It was -" + -changingConstant);
         } 
-        else if (userPattern.equalsIgnoreCase("- " + -changingConstant) && changingConstant < 0) 
+        else if (userPattern.equalsIgnoreCase("- " + -changingConstant)) 
         {
             System.out.println("Correct. It was - " + -changingConstant);
         } 
@@ -198,7 +198,7 @@ public class NumberSequenceExtraCredit
             System.out.println("\n\n~ERROR~\n"); // If all statements are untrue, it will be an error
         
     }
-
+    
 /*RECURSION METHODS: */
 
     public void newSequenceLoop(int start, int TERMS, int counter)
