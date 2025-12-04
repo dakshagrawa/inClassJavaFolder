@@ -26,17 +26,21 @@ public class StringMethodsTester
 		System.out.println("\"Java is awesome\"");
 		
 		String strWithTab = "\t  Hello World!  \t";
-//		System.out.println("The string is \\t Hello World!   \\t");
+		System.out.println("The string is \\t Hello World!   \\t");
 		
 		System.out.println("\nExample using the charAt() in my StringMethods.java class.");
 		for (int i = 0; i < strWithTab.length(); i++)
 			System.out.print("\nStringMethods.charAt(strWithTab, " + i + ") = " + 
 				StringMethods.charAt(strWithTab, i) + " " );
-		// System.out.println(StringMethods.charAt(strWithTab, 50)  ); // after it works, try this.  Record the response.
+//		System.out.println(StringMethods.charAt(strWithTab, 50)  ); // after it works, try this.  Record the response.
 		
-		System.out.println("\nExample using the ...write your method... in my StringMethods.java class.");
-// 		System.out.println("\nStringMethods.your method with parameters used = " + 
-// 			StringMethods. you fill in your method );
+		System.out.println("\nExample using the toLowerCase(strCap) in my StringMethods.java class.");
+ 		System.out.println("\nStringMethods.toLowerCase(strCap) with parameters used = " + 
+			StringMethods.toLowerCase(strCap));
+			
+		System.out.println("\n\nExample using the toUpperCase(strCap) in my StringMethods.java class.");
+ 		System.out.println("\nStringMethods.toUpperCase(strCap) with parameters used = " + 
+			StringMethods.toUpperCase(strCap));
 			
 		System.out.println("\n\nExample using trim(strWithTab), in my StringMethods.java class.");
 		System.out.println("The string is \"\t Hello World!   \t\"");
