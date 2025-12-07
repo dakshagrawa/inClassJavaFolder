@@ -33,7 +33,6 @@ public class StringMethods
 			return '?';
 		
 		// Takes substring of one character, compares to space, then adds 32
-		// This does not behave like normal charAt, but is a custom approach
 		return (char)(str.substring(index,index+1).compareTo(" ")+32);
 	}
 	
