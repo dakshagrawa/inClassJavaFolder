@@ -15,7 +15,7 @@
  *   - toUpperCase: convert lowercase letters to uppercase
  * 
  * >Testing: 
- *  1. Try strings with spaces, tabs, uppercase, lowercase, and invalid indices.
+ *  1. Try strings with spaces, tabs, uppercase, lowercase, and invalid indices in the tester class.
  * 
  */
 public class StringMethods
