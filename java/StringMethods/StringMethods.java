@@ -2,6 +2,8 @@
 /* Period 7
  * 12/02/2025
  * 
+ * StringMethods.java
+ * 
  * >Description: Program that remakes some common String methods
  *   (charAt, trim, toLowerCase, toUpperCase) using self-made logic.
  * 

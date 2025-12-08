@@ -2,6 +2,7 @@
 // Period 7
 // Date: 12/02/2025
 // StringMethodsTester.java
+// StringMethodsTester.java
 // We are writing some of the String Methods.  This class runs StringMethods.java
 // Here are examples of using at least three methods - charAt, ...., trim
 
