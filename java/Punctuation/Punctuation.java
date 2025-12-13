@@ -64,13 +64,13 @@ public class Punctuation
 {
 	public Punctuation()
 	{
-		
+		//blank
 	}
 	
 	public static void main(String[] args)
 	{
-		Punctuation p = new Punctuation();
-		p.searchIt();
+		Punctuation punctuation = new Punctuation();
+		punctuation.searchIt();
 	}
 	
 	public void searchIt()
