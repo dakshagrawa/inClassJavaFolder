@@ -17,15 +17,32 @@
 *   - How to handle irregular spacing (leading spaces, multiple spaces).
 *
 * >Pseudocode:
-*   1. Trim the sentence and add a trailing space so the last word is processed.
-*   2. Loop through each character in the sentence.
-*   3. Track the current word length using currentWordLength.
-*   4. When a space is found:
-*        - If it is an extra space (two or more in a row), skip it.
-*        - Otherwise extract the previous word using substring().
-*        - Check if the last character of that word is punctuation.
-*        - If yes, print the word.
-*   5. Reset currentWordLength after each space.
+* 	
+*	Class header
+* 
+*   Program Structure:
+*     - main() creates a Punctuation object and calls searchIt().
+*     - searchIt()[void] prints 3 BL spacing, stores the speech text, and calls getPunctuationWords() and sends the text to it.
+*
+*   getPunctuationWords(sentence): [void]
+*     1. Trim sentence and append one space.
+*     2. Set currentWordLength = 0.
+*     3. Loop through each character (index i):
+*          - If this char and previous char are both spaces:
+*                reset currentWordLength and continue.
+*          - If this char is a space:
+*                extract the previous word using substring(i - currentWordLength, i)
+*                if the word ends with punctuation → print it
+*                reset currentWordLength
+*          - Increment currentWordLength.
+*
+*   checkForPunctuation(word): [return boolean]
+*     - If empty return false
+*     - Get last character
+*     - Return true if last character is NOT a letter or digit
+*
+*   printWords(word): [void]
+*     - Print the word
 *
 * >Testing:
 *   Tested with the string: " Hello.   World# "
@@ -89,8 +106,8 @@ public class Punctuation
 
 		for(int i = 0; i < sentence.length(); i++ )
 		{
-			// Skip extra spaces (second or later in a sequence). This prevents empty substrings and keeps word formatted correctly.
-			if (i > 0 && sentence.charAt(i) == ' ' && sentence.charAt(i-1) == ' ')
+			// Skip extra spaces. This prevents empty substrings and keeps word formatted correctly.
+			if (sentence.charAt(i) == ' ' && sentence.charAt(i-1) == ' ')
 			{
 				currentWordLength = 0; 
 				continue;
