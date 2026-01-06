@@ -4,11 +4,11 @@
 * 
 * ExpandContraction.java
 * 
-* >Description:
+* >Description: In the English Language, words can be combined together 
+* 				to form contractions. This program takes in contractions 
+* 				and gives out the expanded version of the contraction.
 *
-* >Learning:
-*
-* >Pseudocode:
+* >Learning: String Methods, do-while loops, complex if-else statements, etc.
 * 		
 *
 * >Testing:
@@ -40,13 +40,18 @@ public class ExpandContraction
     public void expandIt()
     {
 		System.out.print("\n\n\n");
+		System.out.println("In the English Language, words can be combined"
+						 + " together to form contractions. This program "
+						 + "takes in contractions and gives out the expanded"
+						 + " version of the contraction. So...");
+		boolean nextRun = true;
         do
         {
-			boolean nextRun = true;
             getInput();
-            processString();
-            printResult();
-            System.out.println("\nWould you like to expand another contraction? Type quit to stop");
+            boolean shouldPrint = processString();
+            printResult(shouldPrint);
+            System.out.println("\nWould you like to expand another contraction? "
+							 + "Type quit to stop.");
             if (kb.next().equalsIgnoreCase("quit"))
 				nextRun = false;
 				
@@ -57,11 +62,11 @@ public class ExpandContraction
 
     public void getInput()
     {
-        System.out.println("What contraction would you like to expand?");
+        System.out.println("\nWhat contraction would you like to expand?");
         contracted = kb.next();
     }
 
-    public void processString()
+    public boolean processString()
     {
 		if (contracted.equalsIgnoreCase("shant"))
 			expanded = "shall not";
@@ -72,19 +77,24 @@ public class ExpandContraction
 		else 
 		{
 			int contractedLength = contracted.length()-1;
-			if (contracted.substring(contractedLength-2).equalsIgnoreCase("n't"))
-				{
-					String wordWithoutContraction = new String(contracted.substring(0,contractedLength-2));
-					expanded = wordWithoutContraction + " not";
-				}
-			else
+			if (contractedLength<=1 || !contracted.substring(contractedLength-2).equalsIgnoreCase("n't"))
+			{
 				System.out.println("The specified contraction is invalid.");
+				return false;
+			}
+			else
+			{
+				String wordWithoutContraction = new String(contracted.substring(0,contractedLength-2));
+				expanded = wordWithoutContraction + " not";
+			}
 		}
+		return true;
     }
 
-    public void printResult()
+    public void printResult(boolean printing)
     {
-		System.out.println("The expanded form of "+contracted+" is "+expanded+".");
+		if(printing)
+			System.out.println("The expanded form of "+contracted+" is "+expanded+".");
     }
 } // closes class
 
