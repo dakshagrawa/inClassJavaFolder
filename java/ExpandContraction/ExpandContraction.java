@@ -71,9 +71,9 @@ public class ExpandContraction
 		if (contracted.equalsIgnoreCase("shant"))
 			expanded = "shall not";
 		else if (contracted.equalsIgnoreCase("won't"))
-			expanded = "would not";
+			expanded = "will not";
 		else if (contracted.equalsIgnoreCase("can't"))
-			expanded = "can not";
+			expanded = "cannot";
 		else 
 		{
 			int contractedLength = contracted.length()-1;
