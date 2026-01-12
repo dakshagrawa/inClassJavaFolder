@@ -79,8 +79,8 @@ public class EncryptForExtraCredit
         unencrypted = in.nextLine();
         original = unencrypted;   // Save the original for cycle detection
 
-        System.out.println("\nBy how many characters do you want the text"
-                         + " to be encrypted by? (Enter a whole number)");
+        System.out.println("\nHow much do you like it to be incremented by?"
+                         + " (Enter a whole number)");
         System.out.print("\n->\t");
 
         // Normalize the shift to the range 0–25
