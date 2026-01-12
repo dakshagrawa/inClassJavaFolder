@@ -116,7 +116,7 @@ public class Punctuation
 			// When we hit a space, extract the previous word and check punctuation
 			if (sentence.charAt(i) == ' ' && checkForPunctuation(sentence.substring((i-currentWordLength),i)))
 			{
-				printWords(sentence.substring((i-currentWordLength),i));
+				printWord(sentence.substring((i-currentWordLength),i));
 				currentWordLength = -1; 
 			}
 			else if (sentence.charAt(i) == ' ')
@@ -130,15 +130,22 @@ public class Punctuation
 	public boolean checkForPunctuation(String thisWord)
 	{
 		// Prevent empty-string crashes
-		if (thisWord.equals(""))
+		if (thisWord.equals("") || thisWord.equals(" "))
 			return false;
 
-		// Get last character and check if it is not A–Z, a–z, 0–9
-		char lastChar = thisWord.charAt(thisWord.length()-1);
-		return ((int)lastChar<48 || ((int)lastChar>57 && (int)lastChar<65) || ((int)lastChar>90 && (int)lastChar<97) || (int)lastChar>122);
+		char thisChar = '?';
+
+		// Get all characters and check if it is not A–Z, a–z, 0–9
+		for(int i = thisWord.length(); i > 0; i--)
+		{
+			thisChar = thisWord.charAt(i-1);
+			if ((int)thisChar<48 || ((int)thisChar>57 && (int)thisChar<65) || ((int)thisChar>90 && (int)thisChar<97) || (int)thisChar>122)
+				return true;
+		}
+		return false;
 	}
 	
-	public void printWords(String wordWithPunctuation)
+	public void printWord(String wordWithPunctuation)
 	{
 		// Output of the word that ends with punctuation
 		System.out.println(wordWithPunctuation);
