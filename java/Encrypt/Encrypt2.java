@@ -2,7 +2,7 @@
 /* Period 7
  * 01/06/2026
  *
- * EncryptForExtraCredit.java
+ * Encrypt2.java
  *
  * Objective:
  *     Demonstrate simple encryption by repeatedly shifting letters in a string
@@ -29,14 +29,14 @@
 
 import java.util.Scanner;
 
-public class EncryptForExtraCredit
+public class Encrypt2
 {
     private String original;      // Stores the original user input
     private String unencrypted;   // Stores the current text before shifting
     private String encrypted;     // Stores the most recently encrypted result
     private int addCase;          // Number of characters to shift by
 
-    public EncryptForExtraCredit()
+    public Encrypt2()
     {
         // Initialize all strings as empty and default shift to 2
         original = new String();
@@ -48,7 +48,7 @@ public class EncryptForExtraCredit
     public static void main(String[] args)
     {
         // Create an EncryptForExtraCredit object and begin the rotation process
-        EncryptForExtraCredit encrypt = new EncryptForExtraCredit();
+        Encrypt2 encrypt = new Encrypt2();
         encrypt.rotationTimes();
     }
     
@@ -56,6 +56,10 @@ public class EncryptForExtraCredit
     {
         // Get user input before starting the encryption cycle
         getString();
+        
+        // Mod negative increments
+        while (addCase<0)
+			addCase = addCase+26;
         
         // Continue encrypting until the text returns to the original
         for(int i = 0; !encrypted.equals(original); i++)
