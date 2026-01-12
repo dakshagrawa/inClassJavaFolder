@@ -93,20 +93,26 @@ public class Encrypt
 			unencrypted = encrypted;
 			encrypted = new String();
 		}
+
 		for(int i = 0; i < unencrypted.length(); i++)
 		{
 			char currentChar = unencrypted.charAt(i);
 			
-			if ((int)currentChar>90 && (int)currentChar<97)
-				currentChar = (char)((int)currentChar-65);
-			
-			if ((int)currentChar>122)
-				currentChar = (char)((int)currentChar-97);
-			
-			if (!((int)currentChar>122) && !((int)currentChar>90 && (int)currentChar<97))
-				currentChar = (char)((int)currentChar+2);
-			
-			encrypted = encrypted+""+currentChar;
+			if (currentChar>='A' && currentChar<='Z')
+			{
+				currentChar = (char)(currentChar+2);
+				if (currentChar>'Z')
+					currentChar = (char)(currentChar-26);
+			}
+
+			if (currentChar>='a' && currentChar<='z')
+			{
+				currentChar = (char)(currentChar+2);
+				if (currentChar>'z')
+					currentChar = (char)(currentChar-26);
+			}
+
+			encrypted += currentChar;
 			
 		}
 	}
