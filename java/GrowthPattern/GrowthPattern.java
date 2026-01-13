@@ -61,7 +61,6 @@
 
 public class GrowthPattern
 {
-	// Array storing height values at each time step
 	private int[] height;
 	
 	public GrowthPattern()
@@ -139,7 +138,9 @@ public class GrowthPattern
 		System.out.printf("%nt%-5d ",index);
 		
 		// Print symbols formatted around a vertical bar
-		if (height[index]<0)
+		if (height[index]==0)
+			System.out.printf("%6s",symbol+"");
+		else if (height[index]<0)
 			System.out.printf("%5s|%s",characters,"");
 		else
 			System.out.printf("%5s|%s","",characters);
