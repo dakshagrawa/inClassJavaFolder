@@ -1,8 +1,8 @@
 // Daksh Agrawal
 /* Period 7
-* 01/12/2026
+* 01/13/2026
 * 
-* GrowthPattern.java
+* GrowthPattern2.java
 * 
 * >Objective:
 *   Analyze a sequence of height values and visually represent growth,
@@ -14,56 +14,25 @@
 *   It also calculates and prints the average rate of change across the data.
 *
 * >Learning:
-*   - Working with arrays
-*   - Using loops and conditionals
-*   - Creating helper methods
-*   - Formatting console output with printf
-*
-* >Pseudocode:
-*   Class Header
-*   Make a private FV that holds the array of integers (height)
-* 
-*   constructor:
-*       set values for array FV (height)
-* 
-*   main:
-*       call constructor
-*       call growIt()
-* 
-*   growIt:
-*       3 BLs
-*       loop that runs the number of times the length of the array
-*           call decideSymbols() and store the character in a char, takes in index number.
-*           call printSymbols() and send in the char along with the index number of the loop.
-*       call printRate()
-*       3 BLs
-*   
-*   decideSymbols: (takes in the index number)
-*       if it is the first index of the array, skip it. 
-*           calls returns the symbol 'o' 
-*       else
-*           check if the previous index is greater than, equal to or less than the next index value
-*           if it is less, return '-', if more, return '+', if equal, return 'o'
-* 
-*   printSymbol: (takes in the values of the index as int and the the symbol as char)
-*       prints the symbols using printf and formats the characters respectively.
-* 
-*   printRate:
-*       calculate the rate of change by taking the first and last index values of the array and 
-*           dividing that by the total number of values in the array. 
-*       
+*   - Working with arrays and index-based comparisons
+*   - Using loops and conditionals to drive console visualization
+*   - Creating modular helper methods for symbol logic and formatting
+*   - Formatting console output with printf for alignment
 *
 * >Testing:
-*   - Verified output alignment
-*   - Checked symbol correctness for positive, negative, and equal values
-*   - Confirmed rate calculation accuracy
+*   - Verified output alignment for both positive and negative heights
+*   - Checked symbol correctness ('+', '-', 'o') for growth patterns
+*   - Confirmed average rate calculation accuracy
+*
 */
 
-public class GrowthPattern
+import java.util.Scanner;
+
+public class GrowthPattern2
 {
 	private int[] height;
 	
-	public GrowthPattern()
+	public GrowthPattern2()
 	{
 		// Initialize the height array with predefined values
 		height = new int[]{-1, -3, 1, 2, 3, 4, 3, 4, 4, 6, 8, 6, 6, 7, 10};
@@ -71,16 +40,24 @@ public class GrowthPattern
 	
 	public static void main(String[] args)
 	{
-		// Create a GrowthPattern object and run the visualization
-		GrowthPattern gp = new GrowthPattern();
-		gp.growIt();
+		// Create a GrowthPattern2 object and run the visualization
+		GrowthPattern2 gp2 = new GrowthPattern2();
+		gp2.growIt();
 	}
 	
 	public void growIt()
 	{
 		// Print blank lines for spacing
 		System.out.println("\n\n");
+        System.out.println("Welcome to GrowthPattern! This tool provides a visual analysis "
+                         + "of tree height data over time.\n");
 		
+        // Ask for user values for heights
+        getHeights();
+        
+        System.out.println("Generating tree growth diagram (Legend: + ~Growth, - ~Decline, o ~No Change)...");
+        System.out.println("\nIndex  [Decline] | [Growth]");
+        System.out.print("-----------------|--------------");
 		// Loop through each index of the height array
 		for(int i = 0; i < height.length; i++)
 		{
@@ -97,6 +74,37 @@ public class GrowthPattern
 		// Ending blank lines for spacing
 		System.out.println("\n\n");
 	}
+
+    public void getHeights()
+    {
+        // Calls scanner class
+        Scanner in = new Scanner(System.in);
+        
+        // Asks user whether they want to enter their own values
+        System.out.print("Do you want to enter your own values "
+                      + "for height instead of the preset ones (Type 'N' for no)? ");
+        
+        // Checks if the user entered 'n' or not
+        if(!in.next().trim().equalsIgnoreCase("N"))
+        {
+            System.out.print("How many values of height do you want to enter including initial height? ");
+            height = new int[in.nextInt()];
+
+            System.out.println("\nEnter the values for each height of the plant "
+                             + "(Include only integer values).");
+            
+            // Loop to take any every value the user enters
+            for(int i = 0; i < height.length; i++)
+            {
+                if(i==0)
+                    System.out.print("\n\tInitial height: ");
+                else
+                    System.out.print("\tTime #"+(i)+": \t");
+                height[i] = in.nextInt();
+            }
+        }
+        System.out.println();
+    }
 	
 	public char decideSymbols(int index)
 	{
@@ -135,15 +143,15 @@ public class GrowthPattern
 				characters+=symbol;
 			
 		// Print index label
-		System.out.printf("%nt%-4d ",index);
+		System.out.printf("%nt%-5d ",index);
 		
 		// Print symbols formatted around a vertical bar
 		if (height[index]==0)
-			System.out.printf("%9s",symbol+"");
+			System.out.printf("%11s",symbol+"");
 		else if (height[index]<0)
-			System.out.printf("%8s|%s",characters,"");
+			System.out.printf("%10s|%s",characters,"");
 		else
-			System.out.printf("%8s|%s","",characters);
+			System.out.printf("%10s|%s","",characters);
 		
 	}
 	
