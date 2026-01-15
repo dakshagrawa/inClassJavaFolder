@@ -80,6 +80,8 @@ public class GrowthPattern
 	{
 		// Print blank lines for spacing
 		System.out.println("\n\n");
+        System.out.println("Welcome to GrowthPattern! This tool provides a visual analysis "
+                         + "of tree height data over time.\n");
 		
 		// Loop through each index of the height array
 		for(int i = 0; i < height.length; i++)
