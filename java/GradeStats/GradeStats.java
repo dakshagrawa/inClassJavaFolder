@@ -98,7 +98,7 @@ public class GradeStats
 
 		}while(!input.equalsIgnoreCase("quit"));
 	}
-
+	
 	public void printScores()
 	{
 		System.out.println("\nHere is the data you entered:");
@@ -154,18 +154,32 @@ public class GradeStats
 
 	public double findMedian(int[] givenGrades) 
 	{
-		int med;
-		int[] temp1 = new int[]{};
+		int[] sorted = new int[givenGrades.length];
+		
 		for (int i = 0; i < givenGrades.length; i++)
 		{
-			for (int j = 0; )
-			if (grades[i+1] < grades[i])
-			{
-				
-			}
-			int temp2;
+			int minIndex = 0;
 			
+			for(int j = 1; j < givenGrades.length; j++)
+				if (givenGrades[minIndex] > givenGrades[j])
+					minIndex = j;
+					
+			sorted[i] = givenGrades[minIndex];
+			givenGrades[minIndex] = 9999;
 		}
+		
+		System.out.println("\n\nSorted length: "+sorted.length);
+		System.out.println("\n\nSorted String");
+		for(int z = 0; z < sorted.length; z++)
+		{
+			System.out.print(sorted[z]+", ");
+		}
+		System.out.println();
+		
+		if (sorted.length%2==0)
+			return (sorted[sorted.length/2]+sorted[(sorted.length/2) - 1])/2;
+		else
+			return sorted[sorted.length/2];
     }
 
 	public void printCalculated()
