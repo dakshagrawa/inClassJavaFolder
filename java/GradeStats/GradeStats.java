@@ -177,7 +177,7 @@ public class GradeStats
 		System.out.println();
 		
 		if (sorted.length%2==0)
-			return (sorted[sorted.length/2]+sorted[(sorted.length/2) - 1])/2;
+			return (sorted[sorted.length/2]+sorted[(sorted.length/2) - 1])/2.0;
 		else
 			return sorted[sorted.length/2];
     }
