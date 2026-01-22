@@ -137,7 +137,7 @@ public class GradeStats
 		System.out.println("     Welcome to the Grade Statistics Calculator! (GradeStats.java)     ");
 		System.out.println("=======================================================================");
 		System.out.println("This program is designed to help you analyze class performance. Simply\n"
-						+ "enter your scores one by one (as integers). "
+						+ "enter the scores one by one (as integers). "
 						+ "Once you're done, it will \nautomatically calculate:");
 		System.out.println("  - The Highest Scored Grade (Maximum)");
 		System.out.println("  - The Lowest Scored Grade (Minimum)");
