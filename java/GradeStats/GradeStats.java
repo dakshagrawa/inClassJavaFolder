@@ -56,7 +56,7 @@
 *       set counters and flags
 *       for each grade:
 *           if grade < 75:
-*               UPDATE counters and string list
+*               update counters and string list
 *       if any below 75:
 *           print list
 *       else:
@@ -65,13 +65,13 @@
 *   findMin:
 *       set min = first element
 *       for each remaining element:
-*           UPDATE min if smaller
+*           update min if smaller
 *       return min
 *
 *   findMax:
 *       set max = first element
 *       for each remaining element:
-*           UPDATE max if larger
+*           update max if larger
 *       return max
 *
 *   findAvg:
