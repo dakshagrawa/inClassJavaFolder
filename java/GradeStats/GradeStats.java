@@ -12,7 +12,7 @@
 *   prints them, identifies students scoring below 75%, and calculates statistics.
 *
 * >Learning:
-*   Arrays, loops, Scanner input, dynamic array resizing, helper methods, selection logic.
+*   Arrays, loops, Scanner input, array resizing, helper methods, sort logic for arrays.
 *
 * >Pseudocode:
 *   class GradeStats
