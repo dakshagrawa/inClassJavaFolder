@@ -1,0 +1,6 @@
+- Have a scorer
+- Make a dynamic background that changes color based on the level
+- Make a way that saves user progress and keeps a consistent leaderboard. Protect user data with a password.
+- Include audio effects
+- Have a "File" menu on the top left, like in windows
+- 
