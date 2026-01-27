@@ -73,7 +73,7 @@ public class ReadWritePoem
 		}
 	}
 	
-	/* getWords reade the input file, saves the 1st word of each lin, then prints
+	/* getWords reads the input file, saves the 1st word of each line, then prints
 	 * that word to the output file. No parameters or return value. */
 	 public void getWords()
 	 {
