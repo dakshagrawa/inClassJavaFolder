@@ -1,64 +1,55 @@
 // Daksh Agrawal
 /* Period 7
-* 01/27/2026
-* 
-* Worksheet.java
-* 
-* >Objective:
-* 
-* >Description:
-*
-* >Learning:
-*
-* >Pseudocode:
-* 		
-*
-* >Testing:
-*
-*   
+* 01/29/2026
+* Worksheet2.java
 */
 
 import java.util.Scanner;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.IOException;
 
-public class Worksheet
+public class Worksheet2
 {
+	private int numOfQuestions;
+	
 	private int[] num1;
-	private int[] answers;
+	private double[] answers;
 	private int[] num2;
+	
+	private boolean[] isDivision;
 	
 	private String fileName;
 	private PrintWriter output; // PrintWriter obj to write to file
 	
-	public Worksheet()
+	public Worksheet2()
 	{
+		numOfQuestions = 20;
 		num1 = new int[]{};
-		answers = new int[]{};
+		answers = new double[]{};
 		num2 = new int[]{};
 		fileName = new String();
-		output = null;
+		isDivision = new boolean[]{false};
+		
 	}
 	
 	public static void main(String[] args)
 	{
-		Worksheet ws = new Worksheet();
-		ws.makeWorksheet();
+		Worksheet2 ws2 = new Worksheet2();
+		ws2.makeWorksheet();
 	}
 	
 	public void makeWorksheet()
 	{
 		System.out.println("\n\n");
 		
-		int numOfQuestions = 20;
-		numOfQuestions = getNumOfQuestions();
 		int minNum = getMin();
 		int maxNum = getMax();
 		getFileName();
 		System.out.println();
 		
-		getRandomValues(minNum, maxNum, numOfQuestions);
+		getRandomValues(minNum, maxNum);
 		makeFile();
 		printQuestions(minNum, maxNum);
 		
@@ -67,48 +58,50 @@ public class Worksheet
 		output.close();
 	}
 	
-	public int getNumOfQuestions()
-	{
-		Scanner in = new Scanner(System.in);
-		System.out.print("Number of questions: ");
-		return in.nextInt();	
-	}
-	
 	public int getMin()
 	{
 		Scanner in = new Scanner(System.in);
-		System.out.print("Enter the minimum number you want in the question: ");
+		System.out.print("Enter the minimum number you want: ");
 		return in.nextInt();
 	}
 	
 	public int getMax()
 	{
 		Scanner in = new Scanner(System.in);
-		System.out.print("Enter the maximum number you want in the question: ");
+		System.out.print("Enter the maximum number you want: ");
 		return in.nextInt();
 	}
 	
 	public void getFileName()
 	{
 		Scanner in = new Scanner(System.in);
-		System.out.print("Enter the file name where you want to save it: ");
+		System.out.print("Enter the file name: ");
 		fileName = in.next();
 	}
 	
-	public void getRandomValues(int min, int max, int numOfQs)
+	public void getRandomValues(int min, int max)
 	{
-		num1 = new int[numOfQs];
-		num2 = new int[numOfQs];
-		answers = new int[numOfQs];
+		num1 = new int[numOfQuestions];
+		num2 = new int[numOfQuestions];
+		answers = new double[numOfQuestions];
+		isDivision = new boolean[numOfQuestions];
 		
-		for(int i = 0; i < numOfQs; i++)
+		for(int i = 0; i < numOfQuestions; i++)
 		{
 			num1[i] = random(min,max);
 			num2[i] = random(min,max);
-			if (random(0,1) == 0)
+			int randSymbol = random(1,4);
+			if (randSymbol == 1)
 				answers[i] = num1[i] + num2[i];
+			else if (randSymbol == 2)
+				answers[i] = num1[i] + num2[i];
+			else if (randSymbol == 3)
+				answers[i] = num1[i] * num2[i];
 			else
-				answers[i] = num1[i] + num2[i];
+			{
+				answers[i] = (double)num1[i] / num2[i];
+				isDivision[i] = true;
+			}
 		}
 	}
 	
@@ -119,7 +112,7 @@ public class Worksheet
 	
 	public void printQuestions(int min, int max)
 	{
-		for(int i = 0; i < answers.length; i++)
+		for(int i = 0; i < numOfQuestions; i++)
 		{
 			String question = new String(generateQuestions(i, num1[i], num2[i], answers[i]));
 			if (i%4==0)
@@ -128,13 +121,17 @@ public class Worksheet
 		}
 	}
 	
-	public String generateQuestions(int index, int n1, int n2, int ans)
+	public String generateQuestions(int index, int n1, int n2, double ans)
 	{
 		char sign = '?';
 		if (n1 + n2 == ans)
 			sign = '+';
 		else if (n1 - n2 == ans)
 			sign = '-';
+		else if (n1 * n2 == ans)
+			sign = '×';
+		else
+			sign = '÷';
 			
 		return ((index+1)+". "+n1+" "+sign+" "+n2+" = ");
 		
@@ -161,11 +158,17 @@ public class Worksheet
 	{
 		output.println("\n\n\n\n");
 		output.println("Answer Key");
-		for(int i = 0; i < answers.length; i++)
+		for(int i = 0; i < numOfQuestions; i++)
 		{
 			if(i!=0 && i%4==0)
 				output.println("\n");
-			output.printf("%-25s",((i+1)+". "+answers[i]));
+			
+			if(!isDivision[i])
+				output.printf("%-4s%-21d",((i+1)+". "),(int)answers[i]);
+			else
+			{
+				output.printf("%-4s%-21.3f",((i+1)+". "),answers[i]);
+			}
 		}
 	}
 }
