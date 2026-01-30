@@ -18,10 +18,10 @@
 *   
 */
 
-import java.util.Scanner;
 import java.io.File;
-import java.io.PrintWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class Worksheet
 {
@@ -65,6 +65,7 @@ public class Worksheet
 		printAnswers();
 		
 		output.close();
+		System.out.println("\n\n");
 	}
 	
 	public int getNumOfQuestions()
@@ -103,16 +104,16 @@ public class Worksheet
 		
 		for(int i = 0; i < numOfQs; i++)
 		{
-			num1[i] = random(min,max);
-			num2[i] = random(min,max);
-			if (random(0,1) == 0)
+			num1[i] = randomInt(min,max);
+			num2[i] = randomInt(min,max);
+			if (randomInt(0,1) == 0)
 				answers[i] = num1[i] + num2[i];
 			else
-				answers[i] = num1[i] + num2[i];
+				answers[i] = num1[i] - num2[i];
 		}
 	}
 	
-	public int random(int a, int b)
+	public int randomInt(int a, int b)
 	{
 		return ( (int)(Math.random() * (b - a + 1)) + a );
 	}
@@ -121,8 +122,8 @@ public class Worksheet
 	{
 		for(int i = 0; i < answers.length; i++)
 		{
-			String question = new String(generateQuestions(i, num1[i], num2[i], answers[i]));
-			if (i%4==0)
+			String question = generateQuestions(i, num1[i], num2[i], answers[i]);
+			if (i!=0 && i%4==0)
 				output.println("\n");
 			output.printf("%-25s",question);
 		}
@@ -154,7 +155,7 @@ public class Worksheet
 			System.exit(1);
 		}
 		output.printf("%75sName:____________________%n","");
-		output.printf("%-80sDate:_______________","Addition and subtraction practice using numbers -10 to 10");
+		output.printf("%-80sDate:_______________%n","Addition and subtraction practice using numbers -10 to 10");
 	}
 	
 	public void printAnswers()
