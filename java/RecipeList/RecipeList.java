@@ -28,11 +28,17 @@ public class RecipeList
 {
 	private PrintWriter outList;
 	private String[] userRecipes;
+	private String outFileName;
+	private String[] printRecipes;
+	private String[] printIngredients;
 	
 	public RecipeList()
 	{
 		outList = null;
 		userRecipes = new String[]{};
+		printRecipes = new String[]{};
+		printIngredients = new String[]{};
+		outFileName = new String("ShoppingList.txt");
 	}
 	
 	public static void main(String[] args)
@@ -53,8 +59,11 @@ public class RecipeList
 		// Finds the ingredients for each recipe
 		for (int i = 0; i < userRecipes.length; i++)
 		{
-			getIngredients(userRecipes[i]);
+			getIngredientsAndRecipe(userRecipes[i],i);
 		}
+		
+		// Print the ingredients in ShoppingList
+		printShoppingList();
 		
 		outList.close();
 		System.out.println("\n\n");
@@ -63,7 +72,6 @@ public class RecipeList
 	/* Creates a ShoppingList.txt PrintWriter*/
 	public void makeShoppingList()
 	{
-		String outFileName = new String("ShoppingList.txt");
 		try
 		{
 			outList = new PrintWriter(new File(outFileName));
@@ -78,7 +86,7 @@ public class RecipeList
 	/* Gets the staples from staples.txt and put it in the ShoppingList.txt*/
 	public void getStaples()
 	{
-		String outFileName = new String("Staples.txt");
+		String inFileName = new String("Staples.txt");
 		Scanner staples = null;
 		try 
 		{
@@ -123,10 +131,85 @@ public class RecipeList
 						userRecipes[i] = enteredRecipe;
 				}
 			}
+			
+			printRecipes = new String[userRecipes.length];
 		}
 		
 		/* Finds the recipe and stores its ingredients in ShoppingList.txt */
-		public void getIngredients(String recipe)
+		public void getIngredientsAndRecipe(String recipe, int recipeIndex)
+		{
+			inFileName = new String("Recipes.txt");
+			Scanner recipes = null;
+			try 
+			{
+				recipes = new Scanner(new File(inFileName));
+			}
+			catch (FileNotFoundException e)
+			{
+				System.err.println("Cannot find "+inFileName+" file.");
+				System.exit(3);
+			}
+			
+			while(recipes.hasNext())
+			{
+				String nextWord = recipes.next();
+				// Get all the recipe of the dish
+				if(nextWord.equalsIgnoreCase("Recipe:"))
+				{
+					nextWord = recipes.nextLine();
+					String recipeName = nextWord.substring(0, nextWord.contains(" -")).trim();
+					if(recipeName.equalsIgnoreCase(recipe))
+					{
+						boolean startIngre = false; // To check if the Ingredients section started or not
+						while(recipes.hasNext() && !startIngre)
+						{
+							String nextWordInRecipe = recipes.next();
+							printRecipes[recipeIndex] += (""+nextWordInRecipe);
+							if (nextWordInRecipe.equalsIgnoreCase("ingredients:"))
+								startIngre = true;
+						}
+						// Get all the ingredients for the recipe
+						if (startIngre)
+						{
+							boolean startDirec = false; 
+							while(recipes.hasNext() && !startDerec)
+							{
+								String nextIngredient = recipes.next();
+								String[] temp = printIngredients;
+								printIngredients = new String[temp.length+1];
+								for(int i = 0; i < printIngredients.length && !startDerec; i++)
+								{
+									if (i < temp.length)
+										printIngredients[i] = temp[i]; 
+									else
+										printIngredients[i] = nextIngredient;		
+								}
+								if (nextIngredient.equalsIgnoreCase("directions:"))
+									startDerec = true;
+							}
+							if (startDirec)
+							{
+								boolean startNextRecipe = false; 
+								while(recipes.hasNext() && !startNextRecipe)
+								{
+									String nextIngredient = recipes.next();
+									String[] temp = printIngredients;
+									printIngredients = new String[temp.length+1];
+									for(int i = 0; i < printIngredients.length; i++)
+									{
+										if (i < temp.length)
+											printIngredients[i] = temp[i]; 
+										else
+											printIngredients[i] = nextIngredient;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		public void printShoppingList()
 		{
 			
 		}
