@@ -18,26 +18,26 @@
 *   
 */
 
-import java.util.Scanner;
 import java.io.File;
-import java.io.PrintWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class RecipeList
 {
 	private PrintWriter outList;
 	private String[] userRecipes;
 	private String outFileName;
-	private String[] printRecipes;
-	private String[] printIngredients;
+	private String[] recipeDirections;
+	private String[] allIngredients;
 	
 	public RecipeList()
 	{
 		outList = null;
 		userRecipes = new String[]{};
-		printRecipes = new String[]{};
-		printIngredients = new String[]{};
+		recipeDirections = new String[]{};
+		allIngredients = new String[]{};
 		outFileName = new String("ShoppingList.txt");
 	}
 	
@@ -94,13 +94,21 @@ public class RecipeList
 		}
 		catch (FileNotFoundException e)
 		{
-			System.err.println("Cannot find "+outFileName+" file.");
-			System.exit(2);
+			System.out.println("The "+outFileName+" file does not exist.");
 		}
 		
 		while(staples.hasNextLine())
 		{
-			outList.print(Staples.nextLine());
+			String nextIngredient = staples.nextLine().trim(); // This is the next ingredient
+			String[] temp = allIngredients;
+			allIngredients = new String[temp.length+1];
+			for(int i = 0; i < allIngredients.length; i++)
+			{
+				if (i < temp.length)
+					allIngredients[i] = temp[i]; 
+				else
+					allIngredients[i] = nextIngredient;		
+			}
 		}
 		
 		staples.close();
@@ -132,86 +140,96 @@ public class RecipeList
 				}
 			}
 			
-			printRecipes = new String[userRecipes.length];
+			recipeDirections = new String[userRecipes.length];
 		}
-		
-		/* Finds the recipe and stores its ingredients in ShoppingList.txt */
-		public void getIngredientsAndRecipe(String recipe, int recipeIndex)
+	}
+
+	/* Finds the recipe and stores its ingredients in ShoppingList.txt */
+	public void getIngredientsAndRecipe(String recipe, int recipeIndex)
+	{
+		String inFileName = new String("Recipes.txt");
+		Scanner recipes = null;
+		try 
 		{
-			inFileName = new String("Recipes.txt");
-			Scanner recipes = null;
-			try 
+			recipes = new Scanner(new File(inFileName));
+		}
+		catch (FileNotFoundException e)
+		{
+			System.err.println("Cannot find "+inFileName+" file.");
+			System.exit(2);
+		}
+
+		String nextTerm = new String();
+		if (recipes.hasNext())
+			nextTerm = recipes.next();
+		while(recipes.hasNext())
+		{
+			// Get all the recipe of the dish
+			if(nextTerm.equalsIgnoreCase("Recipe:"))
 			{
-				recipes = new Scanner(new File(inFileName));
-			}
-			catch (FileNotFoundException e)
-			{
-				System.err.println("Cannot find "+inFileName+" file.");
-				System.exit(3);
-			}
-			
-			while(recipes.hasNext())
-			{
-				String nextWord = recipes.next();
-				// Get all the recipe of the dish
-				if(nextWord.equalsIgnoreCase("Recipe:"))
+				recipeDirections[recipeIndex] += (""+nextTerm);
+				nextTerm = recipes.nextLine(); // Takes in the rest of the line and separates the recipe name
+				recipeDirections[recipeIndex] += (""+nextTerm);
+				String recipeName = nextTerm.substring(0, nextTerm.indexOf(" -")).trim();
+				if(recipeName.equalsIgnoreCase(recipe))
 				{
-					nextWord = recipes.nextLine();
-					String recipeName = nextWord.substring(0, nextWord.contains(" -")).trim();
-					if(recipeName.equalsIgnoreCase(recipe))
+					boolean startIngredients = false; // To check if the Ingredients section started or not
+					while(recipes.hasNext() && !startIngredients)
 					{
-						boolean startIngre = false; // To check if the Ingredients section started or not
-						while(recipes.hasNext() && !startIngre)
+						nextTerm = recipes.nextLine();
+						if (nextTerm.trim().equalsIgnoreCase("ingredients:"))
+							startIngredients = true;
+					}
+					// Get all the ingredients for the recipe
+					if (startIngredients)
+					{
+						boolean startDirections = false; // To check if Directions section started yet or not
+						while(recipes.hasNext() && !startDirections)
 						{
-							String nextWordInRecipe = recipes.next();
-							printRecipes[recipeIndex] += (""+nextWordInRecipe);
-							if (nextWordInRecipe.equalsIgnoreCase("ingredients:"))
-								startIngre = true;
-						}
-						// Get all the ingredients for the recipe
-						if (startIngre)
-						{
-							boolean startDirec = false; 
-							while(recipes.hasNext() && !startDerec)
+							nextTerm = recipes.nextLine();
+							String nextIngredient = nextTerm.trim(); // This is the next ingredient
+							if (nextIngredient.equalsIgnoreCase("directions:"))
+								startDirections = true;
+							else
 							{
-								String nextIngredient = recipes.next();
-								String[] temp = printIngredients;
-								printIngredients = new String[temp.length+1];
-								for(int i = 0; i < printIngredients.length && !startDerec; i++)
+								String[] temp1 = allIngredients;
+								allIngredients = new String[temp1.length+1];
+								for(int i = 0; i < allIngredients.length; i++)
 								{
-									if (i < temp.length)
-										printIngredients[i] = temp[i]; 
+									if (i < temp1.length)
+										allIngredients[i] = temp1[i]; 
 									else
-										printIngredients[i] = nextIngredient;		
+										allIngredients[i] = nextIngredient;		
 								}
-								if (nextIngredient.equalsIgnoreCase("directions:"))
-									startDerec = true;
 							}
-							if (startDirec)
+						}
+						if (startDirections)
+						{
+							recipeDirections[recipeIndex] += (""+nextTerm);
+							boolean startNextRecipe = false; // To check if the Ingredients section started or not
+							while(recipes.hasNext() && !startNextRecipe)
 							{
-								boolean startNextRecipe = false; 
-								while(recipes.hasNext() && !startNextRecipe)
+								nextTerm = recipes.nextLine();
+								if (nextTerm.trim().equalsIgnoreCase("recipe:"))
+									startNextRecipe = true;
+								else
 								{
-									String nextIngredient = recipes.next();
-									String[] temp = printIngredients;
-									printIngredients = new String[temp.length+1];
-									for(int i = 0; i < printIngredients.length; i++)
-									{
-										if (i < temp.length)
-											printIngredients[i] = temp[i]; 
-										else
-											printIngredients[i] = nextIngredient;
-									}
+									recipeDirections[recipeIndex] += (""+nextTerm);
 								}
 							}
 						}
 					}
 				}
 			}
+			else
+			{
+				nextTerm = recipes.next();
+			}
 		}
-		public void printShoppingList()
-		{
-			
-		}
+	}
+
+	public void printShoppingList()
+	{
+		
 	}
 }
