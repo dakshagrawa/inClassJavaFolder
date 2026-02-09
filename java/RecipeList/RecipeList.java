@@ -35,9 +35,9 @@ public class RecipeList
 	public RecipeList()
 	{
 		outList = null;
-		userRecipes = new String[]{};
-		recipeDirections = new String[]{};
-		allIngredients = new String[]{};
+		userRecipes = new String[0];
+		recipeDirections = new String[0];
+		allIngredients = new String[0];
 		outFileName = new String("ShoppingList.txt");
 	}
 	
@@ -64,6 +64,9 @@ public class RecipeList
 		
 		// Print the ingredients in ShoppingList
 		printShoppingList();
+
+		// Print the Directions to the screen
+		printDirections();
 		
 		outList.close();
 		System.out.println("\n\n");
@@ -90,28 +93,30 @@ public class RecipeList
 		Scanner staples = null;
 		try 
 		{
-			staples = new Scanner(new File(outFileName));
+			staples = new Scanner(new File(inFileName));
 		}
 		catch (FileNotFoundException e)
 		{
-			System.out.println("The "+outFileName+" file does not exist.");
+			System.out.println("The "+inFileName+" file does not exist. So no staples were added.");
 		}
-		
-		while(staples.hasNextLine())
+
+		if (staples != null)
 		{
-			String nextIngredient = staples.nextLine().trim(); // This is the next ingredient
-			String[] temp = allIngredients;
-			allIngredients = new String[temp.length+1];
-			for(int i = 0; i < allIngredients.length; i++)
+			while(staples.hasNextLine())
 			{
-				if (i < temp.length)
-					allIngredients[i] = temp[i]; 
-				else
-					allIngredients[i] = nextIngredient;		
+				String nextIngredient = staples.nextLine().trim(); // This is the next ingredient
+				String[] temp = allIngredients;
+				allIngredients = new String[temp.length+1];
+				for(int i = 0; i < allIngredients.length; i++)
+				{
+					if (i < temp.length)
+						allIngredients[i] = temp[i]; 
+					else
+						allIngredients[i] = nextIngredient;		
+				}
 			}
+			staples.close();
 		}
-		
-		staples.close();
 	}
 	
 	/* Ask user for recipes*/
@@ -119,7 +124,7 @@ public class RecipeList
 	{
 		Scanner input = new Scanner(System.in);
 		String enteredRecipe = new String();
-		userRecipes = new String[1];
+		userRecipes = new String[0];
 		
 		System.out.println("Enter the recipes you want to make today (write \"Quit\" when you are done):");
 		while(!enteredRecipe.equalsIgnoreCase("quit"))
@@ -141,6 +146,10 @@ public class RecipeList
 			}
 			
 			recipeDirections = new String[userRecipes.length];
+			for(int i = 0; i < recipeDirections.length; i++)
+			{
+				recipeDirections[i] = "";
+			}
 		}
 	}
 
@@ -159,6 +168,7 @@ public class RecipeList
 			System.exit(2);
 		}
 
+		boolean foundRecipe = false;
 		String nextTerm = new String();
 		if (recipes.hasNext())
 			nextTerm = recipes.next();
@@ -167,12 +177,12 @@ public class RecipeList
 			// Get all the recipe of the dish
 			if(nextTerm.equalsIgnoreCase("Recipe:"))
 			{
-				recipeDirections[recipeIndex] += (""+nextTerm);
 				nextTerm = recipes.nextLine(); // Takes in the rest of the line and separates the recipe name
-				recipeDirections[recipeIndex] += (""+nextTerm);
 				String recipeName = nextTerm.substring(0, nextTerm.indexOf(" -")).trim();
 				if(recipeName.equalsIgnoreCase(recipe))
 				{
+					recipeDirections[recipeIndex] += ("\nRecipe: "+nextTerm.trim());
+					foundRecipe = true;
 					boolean startIngredients = false; // To check if the Ingredients section started or not
 					while(recipes.hasNext() && !startIngredients)
 					{
@@ -205,7 +215,7 @@ public class RecipeList
 						}
 						if (startDirections)
 						{
-							recipeDirections[recipeIndex] += (""+nextTerm);
+							recipeDirections[recipeIndex] += ("\n"+nextTerm);
 							boolean startNextRecipe = false; // To check if the Ingredients section started or not
 							while(recipes.hasNext() && !startNextRecipe)
 							{
@@ -214,7 +224,7 @@ public class RecipeList
 									startNextRecipe = true;
 								else
 								{
-									recipeDirections[recipeIndex] += (""+nextTerm);
+									recipeDirections[recipeIndex] += ("\n"+nextTerm);
 								}
 							}
 						}
@@ -226,10 +236,92 @@ public class RecipeList
 				nextTerm = recipes.next();
 			}
 		}
+
+		if (!foundRecipe)
+		{
+			String[] temp1 = allIngredients;
+			allIngredients = new String[temp1.length+1];
+			for(int i = 0; i < allIngredients.length; i++)
+			{
+				if (i < temp1.length)
+					allIngredients[i] = temp1[i]; 
+				else
+					allIngredients[i] = recipe;		
+			}
+		}
+
+		recipes.close();
 	}
 
 	public void printShoppingList()
 	{
-		
+		String[] temp = allIngredients;
+		allIngredients = new String[temp.length];
+		int[] tempQuantity = new int[allIngredients.length];
+		// To look for repeating ingredients
+		for (int i = 0; i < temp.length; i++)
+		{
+			tempQuantity[i] = 1;
+			for (int j = 1 + i; j < temp.length && temp[i] != null; j++)
+			{
+				if (temp[i].equalsIgnoreCase(temp[j]))
+				{
+					temp[j] = null;
+					tempQuantity[i]++;
+				}
+			}
+			if (temp[i] == null)
+				tempQuantity[i] = 0;
+		}
+
+		// To put all null values at the end of the array
+		int[] quantity = new int[allIngredients.length];
+		int nullAndBlankCounter = 0;
+		for (int i = 0; i < temp.length; i++)
+		{
+			if(temp[i] != null && !temp[i].equals(""))
+			{
+				allIngredients[i-nullAndBlankCounter] = temp[i];
+				quantity[i-nullAndBlankCounter] = tempQuantity[i];
+			}
+			else
+			{
+				nullAndBlankCounter ++;
+			}
+		}
+
+		// Put all the extra empty values in the array
+		outList.printf("%-40s|%15s%n","Item","Quantity");
+		for (int i = 0; i < 40; i++)
+		{
+			outList.print("-");
+		}
+		outList.print("|");
+		for (int i = 0; i < 15; i++)
+		{
+			outList.print("-");
+		}
+		outList.println();
+
+		// temp = allIngredients;
+		// tempQuantity = quantity;
+		// quantity = new int[tempQuantity.length-nullCounter];
+		// allIngredients = new String[temp.length-nullCounter];
+		for (int i = 0; i < allIngredients.length-nullAndBlankCounter; i++)
+		{
+			// allIngredients[i] = temp[i];
+			// quantity[i] = tempQuantity[i];
+			//!if(allIngredients[i].endsWith(")"))
+			outList.printf("%-40s|%15d%n",allIngredients[i],quantity[i]);
+		}
+	}
+
+	public void printDirections()
+	{
+		System.out.println("\n");
+		for(int i = 0; i < recipeDirections.length; i++)
+		{
+			System.out.print(recipeDirections[i]+"\n");
+		}
 	}
 }
