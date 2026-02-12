@@ -19,14 +19,14 @@ public class FramesAndGraphicsExample1 extends JFrame
 	public FramesAndGraphicsExample1()
 	{
 		super("This is the Frame's Title");
-		setSize(200, 300);					// Frame is 400 (w) x 200 (h) 
-		setLocation(400,400);				// Changes location of the JFrame
+		setSize(200, 300);							// Frame is 400 (w) x 200 (h) 
+		setLocation(400,400);						// Changes location of the JFrame
 		boolean booleanValue = true;
-		setResizable(booleanValue);			// Asks if JFrame is resizable or not
+		setResizable(booleanValue);					// Asks if JFrame is resizable or not
 		setDefaultCloseOperation(EXIT_ON_CLOSE);	//press at X to close
-		Panel panel1 = new Panel();		// create generic JPanel
-		setContentPane(panel1);				// put panel in Frame
-		setVisible(true);					// makes Frame show up
+		Panel panel1 = new Panel();					// create generic JPanel
+		setContentPane(panel1);						// put panel in Frame
+		setVisible(true);							// makes Frame show up
 	}
 }
 
