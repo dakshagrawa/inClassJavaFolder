@@ -5,17 +5,29 @@
 * Masterpiece.java
 * 
 * >Objective:
+*   Create an original graphics scene using Java’s Graphics class, combining
+*   shapes, colors, and drawing methods to form a cohesive “masterpiece.”
 * 
 * >Description:
+*   This program draws a nighttime mountain landscape. It includes a moon,
+*   stars, clouds, mountains, trees, and a grassy ground layer. The scene is
+*   built using rectangles, ovals, polygons, arcs, and text.
 *
 * >Learning:
+*   - How to organize a graphics program into multiple drawing methods.
+*   - How to use coordinates, colors, and shape dimensions effectively.
+*   - How to layer shapes to create depth and detail in a scene.
 *
 * >Pseudocode:
-* 		
+*   - Set up window and panel.
+*   - Paint background sky.
+*   - Draw ground rectangle.
+*   - Draw stars and title text.
+*   - Draw moon, trees, and cloud using ovals.
+*   - Draw mountains using polygon arrays.
+*   - Add cloud outline using arcs.
+*   - Draw tree trunks using rectangles.
 *
-* >Testing:
-*
-*   
 */
 
 import java.awt.Color;
@@ -65,12 +77,14 @@ class Panel extends JPanel
 		drawRects2(g);
 	}
 
+	/*  Draw the ground rectangle */
 	public void drawRects1(Graphics g)
 	{
 		g.setColor(Color.GREEN);
 		g.fillRect(0,400,1000,100);
 	}
 
+	/*  Draw the title and stars */
 	public void drawStrings(Graphics g)
 	{
 		// Title on bottom
@@ -91,6 +105,7 @@ class Panel extends JPanel
 		g.drawString("*",900,200);
 	}
 
+	/*  Draw moon, trees, and cloud using ovals */
 	public void drawOvals(Graphics g)
 	{
 		// Moon
@@ -121,6 +136,7 @@ class Panel extends JPanel
 
 	}
 
+	/*  Draw mountains as a filled polygon and outline */
 	public void drawPolygons(Graphics g)
 	{
 		// Mountains
@@ -134,6 +150,7 @@ class Panel extends JPanel
 		g.drawPolygon(mount_x,mount_y,7);
 	}
 	
+	/*  Draw cloud outline using arcs */
 	public void drawArcs(Graphics g)
 	{
 		// Cloud Outline
@@ -145,6 +162,7 @@ class Panel extends JPanel
 		
 	}
 
+	/*  Draw tree trunks and their outlines */
 	public void drawRects2(Graphics g)
 	{
 		// Trees' trunks
