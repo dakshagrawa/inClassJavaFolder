@@ -20,8 +20,7 @@
 * >Pseudocode:
 * 	1. Initialize a JFrame and add a custom JPanel.
 * 	2. Set the background to BLUE in the Panel constructor.
-* 	3. Override paintComponent to call specific methods for each scene element.
-* 	4. Use pixel coordinates to draw lines for the handle and a polygon for the bowl.
+* 	3. Use pixel coordinates to draw shapes to build the screen in separate methods.
 */
 
 import java.awt.Color;
