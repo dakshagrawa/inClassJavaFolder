@@ -1,5 +1,5 @@
-// 
-// 
+// Daksh Agrawal
+// Period 7
 // MouseMovingEx.java
 
 // This is an example of using the mouse to move an oval across the panel.
