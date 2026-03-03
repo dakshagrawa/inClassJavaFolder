@@ -87,6 +87,9 @@ class Panel extends JPanel
 		g.fillOval(-5,-5,120,120);
 		g.setColor(Color.BLUE);
 		g.fillOval(-20,-20,115,115);
+		//Extra: dot
+		g.setColor(Color.BLACK);
+		g.drawLine(25,25,25,25);
 	}
 
 	public void constellation(Graphics g)
