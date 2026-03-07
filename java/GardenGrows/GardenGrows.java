@@ -68,15 +68,15 @@ class Garden extends JPanel implements MouseListener, KeyListener
 {
 	private boolean isWatered_mouseClicked;
 	private boolean isWatered_keyTyped;
-	private boolean isSun_mouseClicked;
-	private boolean isSun_keyTyped;
+	private boolean isFlower_mouseClicked;
+	private boolean isFlower_keyTyped;
 
 	public Garden()
 	{
 		isWatered_mouseClicked = false;
 		isWatered_keyTyped = false;
-		isSun_mouseClicked = false;
-		isSun_keyTyped = false;
+		isFlower_mouseClicked = false;
+		isFlower_keyTyped = false;
 
 		addMouseListener(this);
 		addKeyListener(this);
@@ -97,12 +97,12 @@ class Garden extends JPanel implements MouseListener, KeyListener
 			g.fillRect(50,50,1000,500);
 		}
 
-		if(isSun_mouseClicked && isSun_keyTyped)
+		if(isFlower_mouseClicked && isFlower_keyTyped)
 		{
 			Color[] colors = new Color[]{Color.YELLOW,Color.MAGENTA, Color.PINK, Color.ORANGE, Color.BLUE, Color.RED, Color.WHITE};
-			for(int x = 100; x < 1050; x+=250)
+			for(int x = 50; x <= 1000; x+=250)
 			{
-				for(int y = 100; y < 550; y+=250)
+				for(int y = 50; y <= 500; y+=250)
 				{
 					g.setColor(colors[(int)(Math.random()*7)]);
 					g.fillOval(x,y,50,50);
@@ -122,8 +122,8 @@ class Garden extends JPanel implements MouseListener, KeyListener
 		if(!isWatered_mouseClicked && inGarden)
 			isWatered_mouseClicked = true;
 
-		if(!isSun_mouseClicked && inGarden && isWatered_keyTyped)
-			isSun_mouseClicked = true;
+		if(!isFlower_mouseClicked && inGarden && isWatered_keyTyped)
+			isFlower_mouseClicked = true;
 	}
 
 	public void mousePressed(MouseEvent evt){}
@@ -142,8 +142,8 @@ class Garden extends JPanel implements MouseListener, KeyListener
 	
 	public void keyPressed(KeyEvent evt)
 	{
-		if(!isSun_keyTyped && evt.getKeyCode()==KeyEvent.VK_UP && isSun_mouseClicked)
-		{	isSun_keyTyped = true;
+		if(!isFlower_keyTyped && evt.getKeyCode()==KeyEvent.VK_UP && isFlower_mouseClicked)
+		{	isFlower_keyTyped = true;
 			repaint();
 		}
 	}
@@ -154,8 +154,8 @@ class Garden extends JPanel implements MouseListener, KeyListener
 		{
 			isWatered_mouseClicked = false;
 			isWatered_keyTyped = false;
-			isSun_mouseClicked = false;
-			isSun_keyTyped = false;
+			isFlower_mouseClicked = false;
+			isFlower_keyTyped = false;
 			repaint();
 		}
 	}
