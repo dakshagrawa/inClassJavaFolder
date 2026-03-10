@@ -26,21 +26,21 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
-public class Accessibilty
+public class Accessibility
 {
-	public Accessibilty()
+	public Accessibility()
 	{
 	}
 	
 	public static void main(String[] args)
 	{
-		Accessibilty acc = new Accessibilty();
+		Accessibility acc = new Accessibility();
 		acc.run();
 	}
 	
 	public void run()
 	{
-		JFrame f = new JFrame("Accessibilty");
+		JFrame f = new JFrame("Accessibility");
 		
 		f.setSize(1000,800);
 		f.setLocation(0,0);
@@ -53,7 +53,7 @@ public class Accessibilty
 	}
 }
 
-public Panel extends JPanel implements KeyListener, MouseListener
+class Panel extends JPanel implements KeyListener, MouseListener
 {
 	private Color myRGB;
 	
@@ -86,7 +86,7 @@ public Panel extends JPanel implements KeyListener, MouseListener
 	
 	public void writeDirections(Graphics g)
 	{
-		g.drawString("Press mouse on the panel.  To increase the font size, press the UP arrow. +"
+		g.drawString("Press mouse on the panel.  To increase the font size, press the UP arrow. " +
 			"To decrease the font size, press the DOWN arrow." +
 			"To make the screen brighter, click the box labelled brighter" +
 			"To make the screen darker, click the box labelled darker", 50, 300);
