@@ -45,7 +45,7 @@ public class AccessibilityRunner
 		f.setSize(1000,800);
 		f.setLocation(0,0);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setBackground(Color.WHITE);
+		f.setBackground(Color.WHITE); //not required (useless)
 		f.setResizable(true);
 		Accessibility p = new Accessibility();
 		f.setContentPane(p);
