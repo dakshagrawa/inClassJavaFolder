@@ -21,10 +21,10 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
-import java.swing.JPanel;
+import javax.swing.JPanel;
 
 //1. import libraries for JButton
-import java.swing.JButton;
+import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -33,7 +33,7 @@ public class Pillsbury2Panel
 	public static void main(String[] args)
 	{
 		Pillsbury2Panel p2P = new Pillsbury2Panel();
-		p2P.runIt;
+		p2P.runIt();
 	}
 	public Pillsbury2Panel()
 	{
@@ -64,7 +64,7 @@ class Pills2Panel extends JPanel
 		drawP = new DrawPanel();
 		add(drawP);
 	}
-	public class PressPanel extands JPanel
+	public class PressPanel extends JPanel
 	{
 		private JButton button1;
 		
@@ -74,19 +74,55 @@ class Pills2Panel extends JPanel
 			
 			//button.setSize() won't work with premade layouts
 			setLayout(new FlowLayout()); //gives size what is needed to fit the string
-			//setLayout(new GridLayout(1,2,5,10));//try(2,1,5,10) and others
+			//setLayout(new GridLayout(1,2,5,10));	//try(2,1,5,10) and others
 			//if 1,2 -> there is only one thing added, so the 2 columns is shrunk to 1.
 			//if 2,1 -> there are 2 rows, the button on top and nothing on the bottom
 			
 			button1 = new JButton("Press my belly."); // construct button
 			
 			// start without setSize
-			button1.setSize(new Dimension(70,150)); // tgus us ibly for the null layout
+			button1.setSize(new Dimension(70,150)); // this is only for the null layout
 			// this is so the actionPerformed is dedicated to this butotn only
-			Butotn1Handler b1handler = new Button1Handler();
+			Button1Handler b1handler = new Button1Handler();
 			button1.addActionListener(b1handler);
 			add(button1); // add button to panel
 			pressed = false; // initialize boolean
+		}
+		class Button1Handler implements ActionListener
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				String command = evt.getActionCommand();		//method we will use.
+				if(command.equals("Press my belly."))
+				{
+					pressed = true;
+					button1.setText("reset");
+				}
+				else
+					button1.setText("Press my belly.");
+				drawP.repaint();		// remember, paintComponent is in a different class, use instance drawP
+			}
+		}
+	}
+	public class DrawPanel extends JPanel
+	{
+		public DrawPanel()
+		{
+			setBackground(Color.MAGENTA);
+		}
+		public void paintComponent(Graphics g)
+		{
+			super.paintComponent(g);	//refresh screen (paint background)
+			setBackground(Color.MAGENTA);
+			Font font = new Font("Serif", Font.BOLD, 30);
+			g.setFont(font);
+			
+			if(pressed)	//conditionally print "tee hee", then change boolean
+			{
+				pressed = false;
+				g.drawString("tee hee", 10, 100);
+			}
+			// notice the position of the string. Remember it is relative to this panel only!
 		}
 	}
 }
