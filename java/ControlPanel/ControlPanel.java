@@ -73,19 +73,19 @@ class CpPanelHolder extends JPanel
 	
 	public CpPanelHolder()
 	{
-        selected = 0;
-        font = new Font("Serif", Font.BOLD, 20);
-        tAComponentInfo = new JTextArea("What the component changed will show here ");
-        welcome = new JLabel("Welcome");
-        welcome.setForeground(Color.BLACK);
-        welcome.setFont(font);
-        pp = new PictPanel();
-        val = 0;
+		selected = 0;
+		font = new Font("Serif", Font.BOLD, 20);
+		tAComponentInfo = new JTextArea("What the component changed will show here ",10,400);
+		welcome = new JLabel("Welcome");
+		welcome.setForeground(Color.BLACK);
+		welcome.setFont(font);
+		pp = new PictPanel();
+		val = 0;
 
-        setLayout(new BorderLayout(20,0));
-        
-        add(pp,BorderLayout.CENTER);
-        add(new RightControlPanel(),BorderLayout.EAST);
+		setLayout(new BorderLayout());
+		
+		add(pp,BorderLayout.CENTER);
+		add(new RightControlPanel(),BorderLayout.EAST);
 	}
 	
 	
@@ -101,7 +101,7 @@ class CpPanelHolder extends JPanel
 		
 		public PictPanel()
 		{
-            setLayout(new BorderLayout());
+			setLayout(new BorderLayout());
 			names = new String[] {"mountains.jpg", "shanghai.jpg", "trees.jpg", "water.jpg"};
 			images = new Image[names.length];
 			widthOfImages = new int[names.length];
@@ -109,17 +109,17 @@ class CpPanelHolder extends JPanel
 			
 			// load all of the pictures
 			for (int i = 0; i < names.length; i++)
-            { // since all of the images are in a directory called pictures, each file
-              // name needs the following before the file name:   "pictures/" + 
-              // e.g. it could be:  pictures/mountains.jpg
-                images[i] = getMyImage("pictures/" + names[i]);
+			{ // since all of the images are in a directory called pictures, each file
+			  // name needs the following before the file name:   "pictures/" + 
+			  // e.g. it could be:  pictures/mountains.jpg
+				images[i] = getMyImage("pictures/" + names[i]);
 
-                widthOfImages[i] = images[i].getWidth(this);
-                // find the heights of each picture
-            }
-            
-            add(getLabel(), BorderLayout.NORTH);
-            add(tAComponentInfo, BorderLayout.SOUTH);
+				widthOfImages[i] = images[i].getWidth(this);
+				// find the heights of each picture
+			}
+			
+			add(new GetLabel(), BorderLayout.NORTH);
+			add(new GetTextArea(), BorderLayout.SOUTH);
 		}
 		
 		// this has been started for you
@@ -127,35 +127,47 @@ class CpPanelHolder extends JPanel
 		{
 			Image picture = null;
 			try
-            {
-                picture = ImageIO.read(new File(pictName));
-            }
-            catch(IOException e)
-            {
-                System.err.println("\n\n"+pictName+ "can't be found.\n\n");
-                e.printStackTrace();
-            }
+			{
+				picture = ImageIO.read(new File(pictName));
+			}
+			catch(IOException e)
+			{
+				System.err.println("\n\n"+pictName+ "can't be found.\n\n");
+				e.printStackTrace();
+			}
 			
-            return picture;
+			return picture;
 		}
 		
 		// draw the image on a blank screen with the top left corner at (20,20)
 		public void paintComponent(Graphics g)
-        {
-            super.paintComponent(g);
+		{
+			super.paintComponent(g);
 
-            g.drawImage(images[selected], 20, 55, 300,
-                    (int)(images[selected].getHeight(this)*(300.0 / images[selected].getWidth(this))),
-                    this);
-                
-            
-        }
-        
-        public JLabel getLabel() 
-        {
-            setLayout(new FlowLayout(FlowLayout.CENTER));
-            return welcome;
-        }
+			g.drawImage(images[selected], 20, 55, 300,
+					(int)(images[selected].getHeight(this)*(300.0 / images[selected].getWidth(this))),
+					this);
+				
+			
+		}
+		
+		class GetLabel extends JPanel
+		{
+			public GetLabel()
+			{
+				setLayout(new FlowLayout(FlowLayout.CENTER));
+				add(welcome);
+			}
+		}
+		
+		class GetTextArea extends JPanel
+		{
+			public GetTextArea()
+			{
+				setLayout(new BorderLayout());
+				add(tAComponentInfo);
+			}
+		}
 	}	
 		
 	/* Make all panels on the right be cyan.
@@ -173,136 +185,134 @@ class CpPanelHolder extends JPanel
 		private JSlider sSize;	// slider for changing the size of the picture
 		
 		public RightControlPanel()
-        {
-            setLayout(new BorderLayout(0, 0));
-            setPreferredSize(new Dimension(300,getHeight()));
+		{
+			setLayout(new BorderLayout(0, 0));
+			setPreferredSize(new Dimension(300,getHeight()));
 
-            add(new EnterName(),BorderLayout.NORTH);
+			add(new EnterName(),BorderLayout.NORTH);
 
-            add(new PictureMenu(),BorderLayout.CENTER);
-        }
-        
-        public void paintComponent(Graphics g) // not needed in this class
-        {
-            super.paintComponent(g);
-        }
+			add(new PictureMenu(),BorderLayout.CENTER);
+		}
+		
+		public void paintComponent(Graphics g) // not needed in this class
+		{
+			super.paintComponent(g);
+		}
 	
 		// There are a some more classes that you will need here to add to RightControlPanel
 		// You will need to figure them out based on the directions/prompt and the 
 		// sample run in the prompt.  You can figure them out based on your drawing of the
-        // layout, i.e. your pseudocode for this.
-        class EnterName extends JPanel {
-            public EnterName() 
-            {
-                setLayout(new FlowLayout(FlowLayout.CENTER, 200, 10));
-                setBackground(Color.CYAN);
-                setPreferredSize(new Dimension(100, 80));
+		// layout, i.e. your pseudocode for this.
+		class EnterName extends JPanel {
+			public EnterName() 
+			{
+				setLayout(new FlowLayout(FlowLayout.CENTER, 200, 10));
+				setBackground(Color.CYAN);
+				setPreferredSize(new Dimension(100, 80));
 
-                panelLabel();
-                panelTextField();
-            }
+				panelLabel();
+				panelTextField();
+			}
 
-            public void panelLabel() 
-            {
-                JLabel controlLabel = new JLabel("Control Panel");
-                controlLabel.setFont(font);
-                controlLabel.setForeground(Color.BLACK);
-                add(controlLabel);
-            }
+			public void panelLabel() 
+			{
+				JLabel controlLabel = new JLabel("Control Panel");
+				controlLabel.setFont(font);
+				controlLabel.setForeground(Color.BLACK);
+				add(controlLabel);
+			}
 
-            public void panelTextField() 
-            {
-                tfName = new JTextField("Enter your Name");
-                tfName.setPreferredSize(new Dimension(130,20));
-                tfName.setEditable(true);
-                tfName.addActionListener(new TfNameHandler());
-                add(tfName);
-            }
+			public void panelTextField() 
+			{
+				tfName = new JTextField("Enter your Name");
+				tfName.setPreferredSize(new Dimension(130,20));
+				tfName.setEditable(true);
+				tfName.addActionListener(new TfNameHandler());
+				add(tfName);
+			}
 
-            public void paintComponent(Graphics g) 
-            {
-                super.paintComponent(g);
-            }
-        }
+			public void paintComponent(Graphics g) 
+			{
+				super.paintComponent(g);
+			}
+		}
 
-        class PictureMenu extends JPanel
-        {
-            public PictureMenu()
-            {
-                setBackground(Color.CYAN);
-                setPreferredSize(new Dimension(65,20));
-                setLayout(new FlowLayout(FlowLayout.LEFT,40,5));
-                add(makePictureMenuBar());
-            }
-        }
+		class PictureMenu extends JPanel
+		{
+			public PictureMenu()
+			{
+				setBackground(Color.CYAN);
+				setPreferredSize(new Dimension(65,20));
+				setLayout(new FlowLayout(FlowLayout.LEFT,40,5));
+				add(makePictureMenuBar());
+			}
+		}
 
 		
 		public JMenuBar makePictureMenuBar()
 		{
-            JMenuBar bar = new JMenuBar();
-            JMenu pictures = new JMenu("Picture");
-            
-            JMenuItem img1 = new JMenuItem("Mountains");
-            JMenuItem img2 = new JMenuItem("Shanghai");
-            JMenuItem img3 = new JMenuItem("Trees");
-            JMenuItem img4 = new JMenuItem("Water");
+			JMenuBar bar = new JMenuBar();
+			JMenu pictures = new JMenu("Picture");
+			
+			JMenuItem img1 = new JMenuItem("Mountains");
+			JMenuItem img2 = new JMenuItem("Shanghai");
+			JMenuItem img3 = new JMenuItem("Trees");
+			JMenuItem img4 = new JMenuItem("Water");
 
-            PictureMenuHandler pmh = new PictureMenuHandler();
-            img1.addActionListener(pmh);
-            img2.addActionListener(pmh);
-            img3.addActionListener(pmh);
-            img4.addActionListener(pmh);
+			PictureMenuHandler pmh = new PictureMenuHandler();
+			img1.addActionListener(pmh);
+			img2.addActionListener(pmh);
+			img3.addActionListener(pmh);
+			img4.addActionListener(pmh);
 
-            pictures.add(img1);
-            pictures.add(img2);
-            pictures.add(img3);
-            pictures.add(img4);
+			pictures.add(img1);
+			pictures.add(img2);
+			pictures.add(img3);
+			pictures.add(img4);
 
-            bar.add(pictures);
-            return bar;
+			bar.add(pictures);
+			return bar;
 		}
 	
 		
 		// Write the Listener/Handler class for the menu
-        class PictureMenuHandler implements ActionListener
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                String pictureInMenu = evt.getActionCommand();
-                if(pictureInMenu.equals("Mountains"))
-                    selected = 0;
-                else if(pictureInMenu.equals("Shanghai"))
-                    selected = 1;
-                else if(pictureInMenu.equals("Trees"))
-                    selected = 2;
-                else if(pictureInMenu.equals("Water"))
-                    selected = 3;
+		class PictureMenuHandler implements ActionListener
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				String pictureInMenu = evt.getActionCommand();
+				if(pictureInMenu.equals("Mountains"))
+					selected = 0;
+				else if(pictureInMenu.equals("Shanghai"))
+					selected = 1;
+				else if(pictureInMenu.equals("Trees"))
+					selected = 2;
+				else if(pictureInMenu.equals("Water"))
+					selected = 3;
 
-                tAComponentInfo.append("The picture \""+pictureInMenu.toLowerCase()+".jpg\" was selected. ");
-            }
-        }
+				tAComponentInfo.append("\nThe picture \""+pictureInMenu.toLowerCase()+".jpg\" was selected. ");
+			}
+		}
 		
 	
 		// write the Listener/Handler class for the text field
 		class TfNameHandler implements ActionListener
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                String tfNameValue = evt.getActionCommand();
-                
-                if(!tfNameValue.equalsIgnoreCase("Enter your Name"))
-                {
-                    welcome = new JLabel("Welcome " + tfNameValue);        
-                    welcome.setFont(font);
-                    welcome.setForeground(Color.BLACK);
-                    
-                    tAComponentInfo.setText("\"" + tfNameValue + "\" was entered in the text field ");
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				String tfNameValue = evt.getActionCommand().trim();
+				
+				if(!tfNameValue.equalsIgnoreCase("Enter your Name"))
+				{
+					welcome.setText("Welcome " + tfNameValue);
+					
+					tAComponentInfo.setText("\"" + tfNameValue + "\" was entered in the text field ");
 
-                    //! do repaint or something to make the value reflect on PictPanel
-                    pp.repaint();
-                }
-            }
-        }
+					//! do repaint or something to make the value reflect on PictPanel
+					pp.repaint();
+				}
+			}
+		}
 		
 		
 
