@@ -148,16 +148,29 @@ class CpPanelHolder extends JPanel
         public void paintComponent(Graphics g) 
         {
             super.paintComponent(g);
-
-            int tempWidth = 300+val;
+            
+            final int DEFAULTWIDTH = 300;
+            int tempWidth = DEFAULTWIDTH+val;
             int tempHeight = (int)(heightOfImages[selected]*((double)tempWidth/widthOfImages[selected]));
+            int maxHeight = pp.getHeight()-(250+55);
+            int maxWidth = pp.getWidth()-(20+20);
 
-            if(tempWidth <= pp.getWidth()-(20+20) && tempHeight <= pp.getHeight()-(250+55))
-                width = 300+val;
-            else if(pp.getWidth()<=tempWidth+20 && pp.getHeight()<=tempHeight+250)
-                width = 300;
-
-            height = (int)(heightOfImages[selected]*((double)width/widthOfImages[selected]));
+			
+			if(tempWidth <= maxWidth && tempHeight <= maxHeight)
+				width = tempWidth;
+			else if(pp.getWidth()<=tempWidth+20 && pp.getHeight()<=tempHeight+250)
+				width = DEFAULTWIDTH;
+			
+			if(tempWidth >= maxWidth)
+			{
+				if (tempHeight <= maxHeight)
+					height = tempHeight;
+				else
+					height = maxHeight;
+			}
+			else
+				height = (int)(heightOfImages[selected]*((double)width/widthOfImages[selected]));
+				
 
             g.drawImage(images[selected], 20, 55, width, height, this);
         }
