@@ -95,7 +95,7 @@ class CpPanelHolder extends JPanel
     *	most of the code for loading the images is given.  add the rest for the images
     *	plus add the code for the text area, label and font (not necessarily in that order).
     *	the fonts, unless otherwise stated are size 20, bold and Serif.  
-     */
+    */
     class PictPanel extends JPanel 
     {
         private String[] names;	// the names of the pictures
@@ -154,19 +154,19 @@ class CpPanelHolder extends JPanel
             int maxHeight = pp.getHeight()-(250+40);
             int maxWidth = pp.getWidth()-(20+20);
 
-			
-			if(actualWidth <= maxWidth)
-				width = actualWidth;
-			else
-				width = maxWidth;
-			
-			if(actualHeight > maxHeight || (actualWidth > maxWidth && actualHeight > maxHeight))
-				height = maxHeight;
-			else
+            
+            if(actualWidth <= maxWidth)
+                width = actualWidth;
+            else
+                width = maxWidth;
+            
+            if(actualHeight > maxHeight || (actualWidth > maxWidth && actualHeight > maxHeight))
+                height = maxHeight;
+            else
             {
                 height = actualHeight;
             }
-				
+                
 
             g.drawImage(images[selected], 20, 40, width, height, this);
         }
@@ -196,7 +196,7 @@ class CpPanelHolder extends JPanel
     * the radio buttons and the slider.
     * You will have to determine the layouts in order to make them show up like the sample
     * run provided.
-     */
+    */
     class RightControlPanel extends JPanel 
     {
         private JTextField tfName; // text field for user to type in their name
