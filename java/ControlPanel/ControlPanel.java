@@ -98,7 +98,6 @@ class CpPanelHolder extends JPanel
      */
     class PictPanel extends JPanel 
     {
-
         private String[] names;	// the names of the pictures
         private Image[] images;	// array of images to be drawn
 
@@ -150,34 +149,30 @@ class CpPanelHolder extends JPanel
             super.paintComponent(g);
             
             final int DEFAULTWIDTH = 300;
-            int tempWidth = DEFAULTWIDTH+val;
-            int tempHeight = (int)(heightOfImages[selected]*((double)tempWidth/widthOfImages[selected]));
-            int maxHeight = pp.getHeight()-(250+55);
+            int actualWidth = DEFAULTWIDTH+val;
+            int actualHeight = (int)(heightOfImages[selected]*((double)actualWidth/widthOfImages[selected]));
+            int maxHeight = pp.getHeight()-(250+40);
             int maxWidth = pp.getWidth()-(20+20);
 
 			
-			if(tempWidth <= maxWidth && tempHeight <= maxHeight)
-				width = tempWidth;
-			else if(pp.getWidth()<=tempWidth+20 && pp.getHeight()<=tempHeight+250)
-				width = DEFAULTWIDTH;
-			
-			if(tempWidth >= maxWidth)
-			{
-				if (tempHeight <= maxHeight)
-					height = tempHeight;
-				else
-					height = maxHeight;
-			}
+			if(actualWidth <= maxWidth)
+				width = actualWidth;
 			else
-				height = (int)(heightOfImages[selected]*((double)width/widthOfImages[selected]));
+				width = maxWidth;
+			
+			if(actualHeight > maxHeight || (actualWidth > maxWidth && actualHeight > maxHeight))
+				height = maxHeight;
+			else
+            {
+                height = actualHeight;
+            }
 				
 
-            g.drawImage(images[selected], 20, 55, width, height, this);
+            g.drawImage(images[selected], 20, 40, width, height, this);
         }
 
         class GetLabel extends JPanel 
         {
-
             public GetLabel() 
             {
                 setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -187,7 +182,6 @@ class CpPanelHolder extends JPanel
 
         class GetTextArea extends JPanel 
         {
-
             public GetTextArea() 
             {
                 setLayout(new BorderLayout());
@@ -205,7 +199,6 @@ class CpPanelHolder extends JPanel
      */
     class RightControlPanel extends JPanel 
     {
-
         private JTextField tfName; // text field for user to type in their name
         private ButtonGroup bg;	// to select the color so only one is selected
         private JRadioButton color1, color2, color3;	// color choices
