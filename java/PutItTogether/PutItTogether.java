@@ -69,6 +69,8 @@ class PutItTogetherHolder extends JPanel
 		
 		add(fpp, "First");
 		add(hph, "Home");
+		
+		show("First");
 	}
 }
 
@@ -82,7 +84,73 @@ class FirstPagePanel extends JPanel
 	
 	public FirstPagePanel(PutItTogetherHolder panelCardsIn, CardLayout cardsIn, Information infoIn)
 	{
+		panelCards = panelCardsIn;
+		card = cardsIn;
+		info = infoIn;
+		setLayout(null);
+		add(introText());
+		add(nameField());
+		add();
+	}
+	
+	public JTextArea introText()
+	{
+		String text = new String("""
+						Welcome to PutItTogether!\n
+						We’re so glad you’re here. This program was created to 
+						give you a simple, fun, and interactive experience where 
+						you can explore characters, customize visuals, and enjoy 
+						a bit of creativity along the way. As you move through 
+						the screens, you’ll discover features that let you learn 
+						about two special characters, experiment with the appearance 
+						of a shape, and view a small but charming piece of digital art.\n\n
 
+						After this introduction, you’ll be taken to the home page 
+						of the program. There, you’ll find three clearly labeled 
+						options—each represented by a JRadioButton—that guide you 
+						to a different part of the experience. To help you get familiar 
+						with what each one does, here’s a quick overview:\n\n
+
+						1. Character Information: This button takes you to a page dedicated 
+						to two unique characters. You’ll be able to read about who they are, 
+						what makes them interesting, and why they’re part of the program. 
+						It’s a simple, friendly way to get to know them before exploring 
+						the rest of the features.\n\n
+
+						2. Shape Customizer: If you enjoy experimenting with visuals, 
+						this is the place for you. Selecting this option brings you 
+						to a screen where you can change the color, size, and overall 
+						appearance of a shape. It’s a light, creative activity that 
+						lets you play around and see instant results.\n\n
+
+						3. Art Viewer: This button leads you to a small showcase 
+						featuring a piece of digital art. It’s meant to be a calm, 
+						visually pleasing moment in the program, something you can 
+						simply look at and enjoy before moving on.\n\n
+
+						Take your time, explore each section, and have fun putting 
+						everything together. That’s what the program is all about.
+						""");
+		JTextArea intro = new JTextArea(text);
+		intro.setBounds(20,5,760,400);
+		return intro;
+	}
+	
+	public JTextField nameField()
+	{
+		tfName.setText("Enter your name");
+		tfName.addActionListener(new NameListener());
+		tfName.setBounds(20,5,760,400);
+		return tfName;
+	}
+	
+	class NameListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			String name = e.getActionCommand();
+			info.setName(name);
+		}
 	}
 	
 }
@@ -92,7 +160,10 @@ class FixedPanelHolder extends JPanel
 	private Information info;
 	private JButton homeButton;
 	
-	
+	public FixedPanelHolder(info)
+	{
+		
+	}
 }
 
 class HomePanelHolder extends JPanel
