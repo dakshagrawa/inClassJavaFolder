@@ -17,6 +17,8 @@ import javax.imageio.ImageIO;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
@@ -25,6 +27,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 
@@ -67,10 +72,10 @@ class PutItTogetherHolder extends JPanel
 		FirstPagePanel fpp = new FirstPagePanel(this, cards, info);
 		FixedPanelHolder hph = new FixedPanelHolder(info);
 		
-		add(fpp, "First");
+		add(fpp, "LoginCard");
 		add(hph, "Home");
 		
-		show("First");
+		cards.show(this,"LoginCard");
 	}
 }
 
@@ -85,12 +90,12 @@ class FirstPagePanel extends JPanel
 	public FirstPagePanel(PutItTogetherHolder panelCardsIn, CardLayout cardsIn, Information infoIn)
 	{
 		panelCards = panelCardsIn;
-		card = cardsIn;
+		cards = cardsIn;
 		info = infoIn;
 		setLayout(null);
 		add(introText());
 		add(nameField());
-		add();
+		add(enterButton());
 	}
 	
 	public JTextArea introText()
@@ -132,24 +137,42 @@ class FirstPagePanel extends JPanel
 						everything together. That’s what the program is all about.
 						""");
 		JTextArea intro = new JTextArea(text);
+		intro.setEditable(false);
 		intro.setBounds(20,5,760,400);
 		return intro;
 	}
 	
 	public JTextField nameField()
 	{
+		tfName = new JTextField();
 		tfName.setText("Enter your name");
-		tfName.addActionListener(new NameListener());
-		tfName.setBounds(20,5,760,400);
+		//tfName.addActionListener(new NameListener());
+		tfName.setBounds(20,420,760,30);
 		return tfName;
 	}
+
+	public JButton enterButton()
+	{
+		JButton enter = new JButton("Continue");
+		enter.addActionListener(new EnterButtonHandler());
+		enter.setBounds(350, 500, 120, 40);
+		return enter;
+	}
 	
-	class NameListener
+	// class NameListener implements ActionListener
+	// {
+	// 	public void actionPerformed(ActionEvent e)
+	// 	{
+	// 		info.setName(tfName.getText());
+	// 	}
+	// }
+
+	class EnterButtonHandler implements ActionListener 
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			String name = e.getActionCommand();
-			info.setName(name);
+			info.setName(tfName.getText());
+			cards.show(panelCards,"Home");
 		}
 	}
 	
@@ -157,12 +180,22 @@ class FirstPagePanel extends JPanel
 
 class FixedPanelHolder extends JPanel
 {
-	private Information info;
 	private JButton homeButton;
 	
-	public FixedPanelHolder(info)
+	public FixedPanelHolder(Information info)
 	{
-		
+		setLayout(new FlowLayout(FlowLayout.CENTER));
+		homeButton = new JButton("Home");
+		homeButton.addActionListener(new homeButtonHandler());
+		add(homeButton);
+	}
+
+	class homeButtonHandler implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			// change card
+		}
 	}
 }
 
@@ -185,16 +218,28 @@ class HomePanelHolder extends JPanel
 
 class HomePanel extends JPanel
 {
-	
 	// Since the label for the name was created when the classes constructor was called
 	// it needs to be updated after the user types in the name into the text field.
 	// Update that label in paintComponent.
-	public void paintComponent(Graphics g)
+
+    private Information info;
+
+    public HomePanel(Information infoIn) 
 	{
-	}
-	
-	
+        info = infoIn;
+		
+    }
+
+    public void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+        g.setFont(new Font("Arial", Font.BOLD, 20));
+        g.drawString("Welcome, " + info.getName(), 50, 50);
+        g.drawString("Character Info Screen", 50, 100);
+    }
+
 }
+
 
 class BothPictPanel extends JPanel implements MouseListener
 {
@@ -220,11 +265,66 @@ class DrawPanel extends JPanel
 	
 	public class LeftPanel extends JPanel
 	{
+		public LeftPanel()
+		{
+			add(new colorSlider("Red",new ColorAmt(amtRed)));
+		}
+
+		public class ColorAmt
+		{
+			private int amt;
+			public ColorAmt(int colorValue)
+			{
+				amt = colorValue
+			}
+		}
+
+		public class colorSlider
+		{
+			private ColorAmt amt;
+			private String color;
+
+			public colorSlider(String colorName, ColorAmt colorValue)
+			{
+				amt = colorValue;
+				color = colorName;
+			}
+
+			public JSlider makeSlider()
+			{
+				JSlider slider = new JSlider(0, 20, 5);
+				slider.setMajorTickSpacing(5);	// create tick marks on slider every 5 units
+				slider.setPaintTicks(true);
+				slider.setLabelTable( slider.createStandardLabels(5) ); // create labels on tick marks
+				slider.setPaintLabels(true);
+				slider.setOrientation(JSlider.HORIZONTAL);
+				slider.addChangeListener(new SliderHandler());
+				return(slider);
+			}
+
+			public class SliderHandler implements ChangeListener
+			{
+				public void stateChanged(ChangeEvent e)
+				{
+					amt = 
+				}
+			}
+		}
 	}
 	
 	public class RightPanel extends JPanel
 	{
+		public RightPanel()
+		{
+
+		}
+		public void paintComponent(Graphics g)
+		{
+
+		}
 	}
+
+	
 }
 
 class Information
