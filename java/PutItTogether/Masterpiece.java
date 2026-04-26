@@ -33,34 +33,33 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Masterpiece
-{
-	public void runIt()
-	{
-		JFrame f = new JFrame("Daksh's Masterpiece");
+// public class Masterpiece
+// {
+// 	public void runIt()
+// 	{
+// 		JFrame f = new JFrame("Daksh's Masterpiece");
 		
-		f.setSize(1000,500);
-		f.setResizable(false);
-		f.setLocation(0,0);
-		f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
-		Panel panel1 = new Panel();
-		f.setContentPane(panel1);
-		f.setVisible(true);
-	}
+// 		f.setSize(1000,500);
+// 		f.setResizable(false);
+// 		f.setLocation(0,0);
+// 		f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
+// 		Panel panel1 = new Panel();
+// 		f.setContentPane(panel1);
+// 		f.setVisible(true);
+// 	}
 	
-	public static void main(String[] args)
-	{
-		Masterpiece mp = new Masterpiece();
-		mp.runIt();
-	}
-}
+// 	public static void main(String[] args)
+// 	{
+// 		Masterpiece mp = new Masterpiece();
+// 		mp.runIt();
+// 	}
+// }
 
-class Panel extends JPanel
+public class Masterpiece extends JPanel
 {
-	public Panel()
+	public Masterpiece()
 	{
 		setBackground(Color.BLUE);
 	}
