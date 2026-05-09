@@ -12,6 +12,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
@@ -182,12 +183,14 @@ class HomePanel extends JPanel
     private Information info;
     private CardLayout cards;
     private PutItTogetherHolder panelCards;
+	private ButtonGroup bg;
 
     public HomePanel(PutItTogetherHolder panelCardsIn, CardLayout cardsIn, Information infoIn)
     {
         info = infoIn;
         cards = cardsIn;
         panelCards = panelCardsIn;
+		bg = new ButtonGroup();
         setLayout(new BorderLayout());
 
         String text = "Directions: Use the options below to navigate.\n" +
@@ -202,14 +205,27 @@ class HomePanel extends JPanel
                 "3. Patrick's Info: Detailed statistics and a zoomed-in view of Patrick.\n" +
                 "4. Shape Customizer: An interactive tool using RGB sliders and a scrollbar. " +
                 "Change the color and size of a central rectangle.\n\n";
-        JTextArea homeText = new JTextArea(longDesc+text);
-        homeText.setEditable(false);
-        JScrollPane scroller = new JScrollPane(homeText);
-        scroller.setBounds(50, 80, 700, 200);
-        add(scroller);
+		
+		JTextArea homeText = new JTextArea(longDesc + text+"\n\n\n\n");
+		homeText.setEditable(false);
+		homeText.setLineWrap(true);
+		homeText.setWrapStyleWord(true);
+		JScrollPane scroller = new JScrollPane(homeText);
+		scroller.setPreferredSize(new Dimension(500,300));
 
-        JLabel prompt = new JLabel("Please select which page you would like to see.");
-        add(prompt, BorderLayout.SOUTH);
+		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel welcomeLabelPlaceholder = new JPanel();
+		welcomeLabelPlaceholder.setOpaque(false);
+		welcomeLabelPlaceholder.setPreferredSize(new Dimension(1000,60));
+		wrapper.add(welcomeLabelPlaceholder);
+		wrapper.add(scroller);
+		wrapper.setOpaque(false);
+		add(wrapper,BorderLayout.NORTH);
+
+        JLabel prompt = new JLabel("(Please select which page you would like to see.)");
+		JPanel promptPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		promptPanel.add(prompt);
+        add(promptPanel, BorderLayout.SOUTH);
 
         JRadioButton infoBtn = new JRadioButton("To see information about a friend and me.");
         infoBtn.addActionListener(new NavHandler("Both"));
@@ -220,21 +236,34 @@ class HomePanel extends JPanel
         JRadioButton masterpieceBtn = new JRadioButton("Masterpiece");
         masterpieceBtn.addActionListener(new NavHandler("Masterpiece"));
 
-        ButtonGroup bg = new ButtonGroup();
         bg.add(infoBtn);
         bg.add(drawBtn);
         bg.add(masterpieceBtn);
-        
-        add(infoBtn, BorderLayout.SOUTH);
-        add(drawBtn, BorderLayout.SOUTH);
-        add(masterpieceBtn, BorderLayout.SOUTH);
+
+		JPanel buttonHolderPanel = new JPanel(new GridLayout(3,1));
+		buttonHolderPanel.setPreferredSize(new Dimension(400, 150));
+        buttonHolderPanel.setOpaque(false);
+        buttonHolderPanel.add(infoBtn);
+        buttonHolderPanel.add(drawBtn);
+        buttonHolderPanel.add(masterpieceBtn);
+
+		JPanel leftPadding = new JPanel();
+		leftPadding.setPreferredSize(new Dimension(100, 0)); // 100px of padding from the JFrame border
+		leftPadding.setOpaque(false);
+		add(leftPadding, BorderLayout.WEST);
+
+		JPanel buttonWrapper = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
+		buttonWrapper.setOpaque(false);
+		buttonWrapper.add(buttonHolderPanel);
+		add(buttonWrapper, BorderLayout.CENTER);
+
     }
 
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
         g.setFont(new Font("Arial", Font.BOLD, 22));
-        g.drawString("Welcome, " + info.getName(), 50, 50);
+        g.drawString("Welcome " + info.getName().trim() + "!", 50, 50);
     }
 
     class NavHandler implements ActionListener
@@ -242,13 +271,14 @@ class HomePanel extends JPanel
         private String cardName;
 
         public NavHandler(String name) 
-        { 
-            cardName = name; 
+        {
+            cardName = name;
         }
 
         public void actionPerformed(ActionEvent e) 
-        { 
+        {
             cards.show(panelCards, cardName); 
+			bg.clearSelection();
         }
     }
 }
@@ -323,7 +353,7 @@ class MyPictPanel extends JPanel
         dirPanel.add(dir);
         add(dirPanel, BorderLayout.NORTH);
 
-        JPanel infoPanel = new JPanel(new GridLayout(4, 1));
+        JPanel infoPanel = new JPanel(new GridLayout(4, 1,0,100));
         infoPanel.add(new JLabel("Name: SpongeBob SquarePants"));
         infoPanel.add(new JLabel("DOB: July 14, 1986"));
         infoPanel.add(new JLabel("Age: 39"));
@@ -348,6 +378,14 @@ class MyPictPanel extends JPanel
         JPanel bottom = new JPanel();
         bottom.add(home);
         add(bottom, BorderLayout.SOUTH);
+
+		// To make the wrapper and sub-panels transparent
+		centerWrapper.setOpaque(false);
+		infoPanel.setOpaque(false);
+		dirPanel.setOpaque(false);
+		rightSide.setOpaque(false);
+		bottom.setOpaque(false);
+
     }
 
     public void paintComponent(Graphics g)
@@ -355,8 +393,8 @@ class MyPictPanel extends JPanel
         super.paintComponent(g);
         if (info.getImg() != null)
         {
-            int mid = info.getImg().getWidth() / 2;
-            int h = info.getImg().getHeight();
+            int mid = info.getImg().getWidth(this) / 2;
+            int h = info.getImg().getHeight(this);
             g.drawImage(info.getImg(), 50, 100, 400, 600, 0, 0, mid, h, this);
         }
     }
@@ -400,6 +438,13 @@ class FriendPictPanel extends JPanel
         JPanel bottom = new JPanel();
         bottom.add(home);
         add(bottom, BorderLayout.SOUTH);
+
+		// To make the wrapper and sub-panels transparent
+		centerWrapper.setOpaque(false);
+		infoPanel.setOpaque(false);
+		dirPanel.setOpaque(false);
+		rightSide.setOpaque(false);
+		bottom.setOpaque(false);
     }
 
     public void paintComponent(Graphics g)
@@ -407,9 +452,9 @@ class FriendPictPanel extends JPanel
         super.paintComponent(g);
         if (info.getImg() != null)
         {
-            int mid = info.getImg().getWidth() / 2;
-            int w = info.getImg().getWidth();
-            int h = info.getImg().getHeight();
+            int mid = info.getImg().getWidth(this) / 2;
+            int w = info.getImg().getWidth(this);
+            int h = info.getImg().getHeight(this);
             g.drawImage(info.getImg(), 50, 100, 400, 600, mid, 0, w, h, this);
         }
     }
@@ -540,13 +585,23 @@ class HomeHandler implements ActionListener
 class Information
 {
     private String name;
-    private BufferedImage img;
+    private Image img;
 
     public Information()
     {
-		String image = "image.jpg";
-        try { img = ImageIO.read(new File(image)); }
-        catch (IOException e) { System.out.println(image+" not found"); }
+		String imageName = "image.jpg";
+        try 
+		{ 
+			img = ImageIO.read(new File(imageName));
+			if (img == null) 
+			{
+				System.out.println("Error: Image format not supported or file empty.");
+			}
+		}
+        catch (IOException e)
+		{
+			System.err.println("\n"+imageName+" could not be found! :( \n"+e);
+		}
     }
 
     public void setName(String n) 
@@ -559,7 +614,7 @@ class Information
 		return name; 
 	}
 
-    public BufferedImage getImg() 
+    public Image getImg() 
 	{ 
 		return img; 
 	}
